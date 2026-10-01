@@ -1,70 +1,865 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Portfolio</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-    <header class="header">
-        <div id="title">Portfolio</div>
-        <div class="menu">
-            <a id="more" href="#" data-target="#aboutme">About Me</a>
-            <a id="services" href="https://drive.google.com/drive/folders/1nSzbgh1WznPml_5h4ot9nW3RNOzvDNjn?usp=sharings">My Activities</a>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="William Jefferson Demillo: developer and founder. Discord bots, game automation, hardware, and a national hackathon placing.">
+<meta property="og:title" content="William Jefferson Demillo · Portfolio">
+<meta property="og:description" content="Developer and founder. Projects, ventures, and an AI assistant that answers questions about my work.">
+<meta property="og:image" content="assets/avatar.jpg">
+<link rel="icon" href="assets/avatar.jpg">
+<title>William Jefferson Demillo · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#FAF9F5;--side:#F3F1E9;--surface:#FFFFFF;--raise:#F0EEE6;--ink:#1F1E1D;--muted:#706E67;--line:#E5E2D7;--accent:#C96442;--on:#FFFFFF;--user:#EDEAE0;--good:#3F8A57;--warn:#B07A1A;--shadow:rgba(40,30,20,.18);
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Instrument Sans",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#262624;--side:#1F1E1D;--surface:#30302E;--raise:#2B2A27;--ink:#F3F1EA;--muted:#A8A59C;--line:#3E3D39;--accent:#D97757;--on:#1F1E1D;--user:#141413;--good:#7CC48F;--warn:#E2B35A;--shadow:rgba(0,0,0,.5);color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#262624;--side:#1F1E1D;--surface:#30302E;--raise:#2B2A27;--ink:#F3F1EA;--muted:#A8A59C;--line:#3E3D39;--accent:#D97757;--on:#1F1E1D;--user:#141413;--good:#7CC48F;--warn:#E2B35A;--shadow:rgba(0,0,0,.5);color-scheme:dark}
+:root[data-pt="ivory"]{--bg:#FAF9F5;--side:#F3F1E9;--surface:#FFFFFF;--raise:#F0EEE6;--ink:#1F1E1D;--muted:#706E67;--line:#E5E2D7;--accent:#C96442;--on:#FFFFFF;--user:#EDEAE0;--good:#3F8A57;--warn:#B07A1A;--shadow:rgba(40,30,20,.18);color-scheme:light}
+:root[data-pt="charcoal"]{--bg:#262624;--side:#1F1E1D;--surface:#30302E;--raise:#2B2A27;--ink:#F3F1EA;--muted:#A8A59C;--line:#3E3D39;--accent:#D97757;--on:#1F1E1D;--user:#141413;--good:#7CC48F;--warn:#E2B35A;--shadow:rgba(0,0,0,.5);color-scheme:dark}
+:root[data-pt="midnight"]{--bg:#0F1218;--side:#0B0D12;--surface:#171B24;--raise:#131720;--ink:#E6E9F0;--muted:#8C93A3;--line:#252B37;--accent:#8AA8FF;--on:#0F1218;--user:#1C2230;--good:#7CC48F;--warn:#E2B35A;--shadow:rgba(0,0,0,.6);color-scheme:dark}
+:root[data-pt="sage"]{--bg:#F4F5F0;--side:#EAEDE4;--surface:#FFFFFF;--raise:#EAEDE4;--ink:#1C221D;--muted:#66706A;--line:#D9DED2;--accent:#4F7A5A;--on:#FFFFFF;--user:#E2E6DA;--good:#3F8A57;--warn:#9A6B12;--shadow:rgba(20,40,25,.18);color-scheme:light}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+img{max-width:100%}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;padding-inline:0;padding-block:0}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.ph{border-bottom:1.5px dashed color-mix(in srgb,var(--accent) 60%,transparent)}
+.sample{font-family:var(--sans);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);border-radius:999px;padding:1px 7px;white-space:nowrap;vertical-align:2px}
+.mark{width:28px;height:28px;border-radius:8px;background:var(--accent);color:var(--on);display:grid;place-items:center;font-family:var(--serif);font-size:16px;flex:none;line-height:1}
+.eyebrow{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.gut{padding-inline:20px}
+@media (max-width:560px){.gut{padding-inline:16px}}
+.col{max-width:780px;margin:0 auto}
+.wide{max-width:1060px;margin:0 auto}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:transparent;border-radius:10px;padding:7px 14px;cursor:pointer;font-size:.88rem;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--ink)}
+.btn.pri{background:var(--accent);color:var(--on);border-color:var(--accent)}
+.btn.pri:hover{filter:brightness(1.05)}
+.btn.ink{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-family:var(--mono);font-size:.68rem;padding:1px 7px;border-radius:6px;background:var(--raise);border:1px solid var(--line)}
+.spark{display:inline-block;color:var(--accent)}
+
+/* ---------- theme picker ---------- */
+.theme{position:relative}
+.tbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px 5px 7px;font-size:.84rem;cursor:pointer}
+.dot{width:16px;height:16px;border-radius:50%;border:1px solid var(--line);position:relative;flex:none;display:inline-block}
+.dot i{position:absolute;right:-2px;bottom:-2px;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--surface)}
+.tmenu{position:absolute;right:0;top:calc(100% + 8px);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px;min-width:180px;box-shadow:0 16px 40px -16px var(--shadow);display:grid;gap:2px;z-index:60}
+.tmenu button{display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:8px 10px;border-radius:8px;cursor:pointer;text-align:left;font-size:.9rem}
+.tmenu button:hover{background:var(--raise)}
+.tmenu button[aria-checked="true"]::after{content:"✓";margin-left:auto;color:var(--accent)}
+@media (max-width:600px){.tbtn .lbl{display:none}.tbtn{padding:6px}}
+
+/* =================== PORTFOLIO VIEW =================== */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;padding-block:10px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.navin{display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-size:1.15rem;white-space:nowrap}
+.navlinks{display:flex;gap:2px;margin-left:auto}
+.navlinks a{text-decoration:none;color:var(--muted);font-size:.9rem;padding:6px 10px;border-radius:8px}
+.navlinks a:hover{color:var(--ink);background:var(--raise)}
+.askai{display:inline-flex;align-items:center;gap:8px;border:0;background:var(--ink);color:var(--bg);border-radius:999px;padding:7px 14px;font-size:.86rem;font-weight:500;cursor:pointer;white-space:nowrap}
+.askai .spark{color:var(--accent)}
+@media (max-width:780px){.navlinks{display:none}.navin .theme{margin-left:auto}}
+
+.hero{padding-block:64px 36px;display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center}
+@media (max-width:720px){.hero{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px;padding-top:44px}}
+.hero .pfp{position:relative}
+.hero .pfp img{width:168px;height:168px;border-radius:28px;object-fit:cover;display:block;box-shadow:0 0 0 1px var(--line),0 24px 50px -30px var(--shadow)}
+.hero .pfp .on{position:absolute;right:-6px;bottom:14px;display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 8px;font-size:.72rem;white-space:nowrap}
+.hero .pfp .on::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good)}
+.hero .txt{display:grid;gap:12px}
+.hero .role{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.hero h1{font-size:clamp(2.4rem,6vw,3.9rem);line-height:1.02;letter-spacing:-.015em}
+.hero h1 em{color:var(--accent)}
+.hero .bio{color:var(--muted);font-size:1.06rem;max-width:56ch}
+.hero .cta{display:flex;gap:8px;flex-wrap:wrap}
+@media (max-width:720px){.hero .cta{justify-content:center}}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.facts div{padding:14px 18px;display:grid;gap:2px}
+.facts div+div{border-left:1px solid var(--line)}
+.facts dt{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.facts dd{margin:0;font-size:.92rem}
+@media (max-width:720px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* recruiter band: the bot's purpose, stated plainly */
+.band{margin-top:22px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.band .mark{width:40px;height:40px;border-radius:12px;font-size:20px}
+.band b{display:block;font-weight:600}
+.band span{color:var(--muted);font-size:.92rem}
+@media (max-width:640px){.band{grid-template-columns:auto 1fr}.band .btn{grid-column:1/-1;justify-content:center}}
+
+section.sec{padding-block:76px 8px}
+.sec-head{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.sec-head .g{flex:1;min-width:240px;display:grid;gap:6px}
+.sec-head h2{font-size:clamp(1.9rem,4vw,2.5rem);line-height:1.1}
+.sec-head p{color:var(--muted);max-width:56ch}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{font-size:.84rem;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:5px 13px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:920px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.pgrid{grid-template-columns:1fr}}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s,transform .2s;scroll-margin-top:90px}
+.proj:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));box-shadow:0 18px 40px -28px var(--shadow);transform:translateY(-2px)}
+.proj.flash{box-shadow:0 0 0 3px var(--accent)}
+@media (prefers-reduced-motion:reduce){.proj,.proj:hover{transition:none;transform:none}}
+.proj.feat{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr}
+@media (max-width:760px){.proj.feat{grid-template-columns:1fr}}
+.shot{background:var(--raise);padding:14px 16px;font-family:var(--mono);font-size:.72rem;line-height:1.75;color:var(--muted);min-height:140px;overflow:hidden;border-bottom:1px solid var(--line)}
+.proj.feat .shot{border-bottom:0;border-right:1px solid var(--line);min-height:250px;font-size:.8rem}
+@media (max-width:760px){.proj.feat .shot{border-right:0;border-bottom:1px solid var(--line);min-height:170px}}
+.shot .win{display:flex;gap:5px;margin-bottom:10px}
+.shot .win i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.shot pre{margin:0;font:inherit;white-space:pre;overflow:hidden}
+.shot .k{color:var(--accent)} .shot .s{color:var(--good)}
+.pb{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.proj.feat .pb{padding:24px 26px;justify-content:center}
+.pb .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.pb h3{font-size:1.3rem;line-height:1.2}
+.proj.feat h3{font-size:1.8rem}
+.pb p{color:var(--muted);font-size:.92rem}
+.pact{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.pact .btn{padding:6px 12px;font-size:.84rem}
+.btn.ai{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.btn.ai:hover{background:var(--accent);color:var(--on);border-color:var(--accent)}
+
+.agrid{display:grid;grid-template-columns:1fr 1.15fr;gap:16px}
+@media (max-width:840px){.agrid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:grid;gap:12px;align-content:start}
+.panel h3{font-size:1.25rem;display:flex;align-items:baseline;gap:10px}
+.panel h3 .n{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.cert{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.panel h3 + .cert{border-top:0;padding-top:4px}
+.seal{width:44px;height:44px;border-radius:12px;background:var(--raise);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--serif);font-size:1.1rem;color:var(--accent)}
+.cert b{display:block;font-weight:600;font-size:.94rem}
+.cert small{color:var(--muted);font-size:.82rem}
+.cert a{font-size:.8rem;color:var(--accent);text-decoration:none;white-space:nowrap}
+.grp{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-top:6px}
+.hon{display:grid;grid-template-columns:20px 1fr auto;gap:12px;padding:9px 0;border-top:1px solid var(--line);align-items:baseline}
+.grp + .hon{border-top:0}
+.medal{width:16px;height:16px;border-radius:50%;border:2px solid var(--accent);display:inline-block;transform:translateY(3px)}
+.medal.gold{background:var(--accent)} .medal.none{border-color:var(--line)}
+.hon b{font-weight:500;font-size:.93rem}
+.hon small{color:var(--muted);font-size:.78rem;white-space:nowrap}
+.hon.sub{border-top:0;padding-top:0;margin-top:-6px}
+.hon.sub .ctx{white-space:normal;font-size:.8rem}
+
+.contact{margin-top:84px;padding-block:56px;border-top:1px solid var(--line);display:grid;gap:16px;justify-items:center;text-align:center}
+.contact h2{font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.05}
+.contact h2 em{color:var(--accent)}
+.contact p{color:var(--muted);max-width:48ch}
+.copy{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:6px 6px 6px 14px;font-family:var(--mono);font-size:.88rem;max-width:100%;width:fit-content}
+.copy span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy button{border:0;background:var(--ink);color:var(--bg);border-radius:8px;padding:5px 12px;cursor:pointer;font-family:var(--sans);font-size:.82rem}
+.socials{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line)}
+
+/* =================== CHAT VIEW =================== */
+.chatapp{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh;min-height:100dvh}
+.cside{position:sticky;top:0;height:100vh;height:100dvh;background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:14px 10px 12px;gap:2px;overflow-y:auto}
+.cside .brand{padding:4px 8px 12px}
+.sbtn{display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:8px 10px;border-radius:8px;cursor:pointer;text-align:left;font-size:.9rem;width:100%}
+.sbtn:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.sbtn .ico{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-size:.8rem;color:var(--muted);flex:none;border:1px solid var(--line);background:var(--surface)}
+.sbtn.new .ico{background:var(--accent);color:var(--on);border-color:var(--accent);border-radius:50%}
+.slabel{font-size:.7rem;color:var(--muted);padding:16px 10px 4px;letter-spacing:.05em}
+.sfoot{margin-top:auto;padding:12px 8px 0;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.sfoot img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+.sfoot b{display:block;font-weight:600;font-size:.88rem;line-height:1.2}
+.sfoot small{color:var(--muted);font-size:.74rem}
+@media (max-width:900px){.chatapp{grid-template-columns:minmax(0,1fr)}.cside{display:none}}
+
+.cmain{display:flex;flex-direction:column;min-width:0;min-height:100vh;min-height:100dvh}
+.chead{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;gap:10px;padding:10px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.chead .t{font-size:.92rem;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chead .t span{color:var(--muted)}
+.chead .r{margin-left:auto;display:flex;gap:8px;align-items:center}
+.backbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:.84rem;cursor:pointer;white-space:nowrap}
+@media (min-width:901px){.chead .backbtn.m{display:none}}
+
+.thread{width:100%;max-width:780px;margin:0 auto;padding:8px 20px 24px;display:flex;flex-direction:column;gap:24px;flex:1}
+@media (max-width:560px){.thread{padding-inline:16px}}
+.welcome{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding-block:7vh 8px}
+.welcome h1{font-size:clamp(2rem,5vw,2.8rem);line-height:1.1;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.welcome h1 .mark{width:40px;height:40px;font-size:22px;border-radius:11px}
+.welcome p{color:var(--muted);max-width:52ch}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-top:14px;text-align:left}
+@media (min-width:1100px){.tools{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.tools{grid-template-columns:1fr}}
+.tool{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:14px 16px;border:1px solid var(--line);background:var(--surface);border-radius:14px;cursor:pointer;text-align:left;transition:border-color .2s}
+.tool:hover{border-color:var(--accent)}
+.tool .ico{grid-row:span 2;width:34px;height:34px;border-radius:10px;background:var(--raise);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);font-size:1rem}
+.tool b{font-weight:600}
+.tool span{color:var(--muted);font-size:.86rem;line-height:1.4}
+
+.u{align-self:flex-end;background:var(--user);padding:9px 16px;border-radius:18px;max-width:80%;white-space:pre-wrap;animation:rise .25s ease-out}
+.u.long{max-height:140px;overflow:hidden;position:relative;font-size:.9rem}
+.u.long::after{content:"";position:absolute;inset:auto 0 0 0;height:40px;background:linear-gradient(transparent,var(--user))}
+.a{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;animation:rise .25s ease-out}
+.a .body{display:flex;flex-direction:column;gap:12px;min-width:0}
+.a .body > p{max-width:64ch}
+.sys{align-self:center;font-size:.82rem;color:var(--muted);background:var(--raise);border-radius:999px;padding:6px 14px;text-align:center}
+.cursor::after{content:"";display:inline-block;width:8px;height:15px;background:var(--accent);margin-left:2px;vertical-align:-2px;border-radius:2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+@keyframes rise{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.u,.a{animation:none}.cursor::after{animation:none}}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:.86rem}
+.opt:hover{border-color:var(--accent)}
+.opt:disabled{opacity:.5;cursor:default;border-color:var(--line)}
+.sources{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.74rem;color:var(--muted)}
+.sources button{border:1px solid var(--line);background:var(--raise);border-radius:6px;padding:1px 8px;cursor:pointer;font-size:.74rem;color:var(--ink)}
+.sources button:hover{border-color:var(--accent)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:16px}
+
+/* job-fit result */
+.fit{padding:16px 18px;display:grid;gap:14px}
+.fit-top{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.score{font-family:var(--serif);font-size:2.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.score small{font-size:1rem;color:var(--muted)}
+.verdict{font-weight:600}
+.verdict small{display:block;font-weight:400;color:var(--muted);font-size:.84rem}
+.meter{height:8px;border-radius:99px;background:var(--raise);border:1px solid var(--line);overflow:hidden;flex-basis:100%}
+.meter i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.fit-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.fit-cols{grid-template-columns:1fr}}
+.fit h5{margin:0 0 6px;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.fit ul{margin:0;padding:0;list-style:none;display:grid;gap:5px;font-size:.9rem}
+.fit li{display:flex;gap:8px;align-items:baseline}
+.fit li .y{color:var(--good)} .fit li .n{color:var(--warn)}
+.fit .rel{display:flex;flex-wrap:wrap;gap:8px}
+.mini{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--bg);cursor:pointer;text-align:left}
+.mini:hover{border-color:var(--accent)}
+.mini .ic{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);display:grid;place-items:center;font-size:12px;color:var(--accent);background:var(--raise);flex:none}
+.mini small{display:block;color:var(--muted);font-size:.74rem}
+.found{display:grid;gap:8px}
+.found .mini{width:100%}
+.found .mini .go{margin-left:auto;color:var(--accent);font-size:.82rem;white-space:nowrap}
+
+/* message form */
+.mform{padding:16px 18px;display:grid;gap:10px}
+.mform label{display:grid;gap:4px;font-size:.78rem;color:var(--muted);font-weight:600;letter-spacing:.02em}
+.mform input,.mform select,.mform textarea{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 10px;font-size:.92rem;color:var(--ink);font-weight:400;width:100%}
+.mform .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){.mform .two{grid-template-columns:1fr}}
+.draft{padding:16px 18px;display:grid;gap:10px}
+.draft pre{margin:0;white-space:pre-wrap;font-family:var(--sans);font-size:.92rem;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.draft .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.draft .to{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+
+.composer{position:sticky;bottom:0;z-index:9;padding:16px 20px calc(14px + env(safe-area-inset-bottom,0px));background:linear-gradient(to bottom,transparent,var(--bg) 24px)}
+@media (max-width:560px){.composer{padding-inline:12px}}
+.cwrap{max-width:780px;margin:0 auto;display:grid;gap:8px}
+.mode{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--muted)}
+.mode b{color:var(--accent);font-weight:600}
+.mode button{border:0;background:transparent;color:var(--muted);cursor:pointer;text-decoration:underline;font-size:.8rem}
+.ibox{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px 12px 10px 18px;display:grid;gap:8px;box-shadow:0 10px 30px -18px var(--shadow)}
+.ibox:focus-within{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.ibox textarea{border:0;outline:none;background:transparent;resize:none;min-height:26px;max-height:180px;padding:2px 0}
+.ibox textarea::placeholder{color:var(--muted)}
+.ibox .bar{display:flex;align-items:center;gap:10px}
+.quota{display:flex;align-items:center;gap:8px;font-size:.76rem;color:var(--muted)}
+.pips{display:flex;gap:2px}
+.pips i{width:5px;height:12px;border-radius:2px;background:var(--accent)}
+.pips i.used{background:var(--line)}
+.model{margin-left:auto;font-size:.76rem;color:var(--muted)}
+.send{width:34px;height:34px;border-radius:10px;border:0;background:var(--accent);color:var(--on);cursor:pointer;font-size:17px}
+.send:disabled{opacity:.4;cursor:not-allowed}
+.fine{text-align:center;font-size:.7rem;color:var(--muted)}
+
+/* ---------- experience timeline ---------- */
+.tline{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.ti{display:grid;grid-template-columns:110px 1fr;gap:20px;position:relative;padding-bottom:18px}
+.ti::before{content:"";position:absolute;left:118px;top:22px;bottom:0;width:1px;background:var(--line)}
+.ti:last-child::before{display:none}
+.ti .when{font-family:var(--mono);font-size:.76rem;color:var(--muted);padding-top:18px;text-align:right;padding-right:22px;position:relative}
+.ti .when::after{content:"";position:absolute;right:-13px;top:22px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.ti:first-child .when::after{background:var(--accent)}
+@media (max-width:640px){.ti{grid-template-columns:1fr;gap:6px}.ti::before,.ti .when::after{display:none}.ti .when{text-align:left;padding:0}}
+.tcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:grid;gap:14px}
+.thead{display:grid;gap:4px}
+.kind{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.thead h3{font-size:1.45rem;line-height:1.15}
+.thead p{color:var(--muted);font-size:.93rem;max-width:64ch}
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.nums div{padding:12px 14px;display:grid;gap:2px}
+.nums div+div{border-left:1px solid var(--line)}
+.nums b{font-family:var(--serif);font-weight:400;font-size:1.45rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.nums div:first-child b{color:var(--accent)}
+.nums small{color:var(--muted);font-size:.76rem}
+@media (max-width:720px){.nums{grid-template-columns:1fr 1fr}.nums div:nth-child(3){border-left:0}.nums div:nth-child(n+3){border-top:1px solid var(--line)}}
+.tcard .foot{font-size:.84rem;color:var(--muted)}
+.places{list-style:none;margin:0;padding:0;display:grid}
+.places li{display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
+.places li:first-child{border-top:0;padding-top:0}
+.places b{font-weight:600;font-size:.95rem;display:block}
+.places small{color:var(--muted);font-size:.82rem}
+.places .lvl{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.certrow{margin-top:18px;display:grid;grid-template-columns:110px 1fr;gap:20px;align-items:center}
+.certrow .kind{text-align:right;padding-right:22px}
+.certrow .cert{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+@media (max-width:640px){.certrow{grid-template-columns:1fr;gap:6px}.certrow .kind{text-align:left;padding:0}}
+
+/* ---------- private projects: case study ---------- */
+.lock{display:inline-flex;align-items:center;gap:5px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--ink);background:var(--raise);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.lock::before{content:"";width:7px;height:8px;border:1.5px solid currentColor;border-radius:2px;box-shadow:inset 0 3px 0 0 transparent;position:relative;top:1px}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:70}
+.case{position:fixed;top:0;right:0;bottom:0;width:min(620px,100%);background:var(--surface);border-left:1px solid var(--line);z-index:71;display:flex;flex-direction:column;box-shadow:-30px 0 60px -30px var(--shadow);animation:slide .28s ease}
+@keyframes slide{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.case{animation:none}}
+.case-h{display:flex;align-items:center;gap:10px;padding:12px 18px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--line);font-size:.9rem}
+.case-h .x{margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:transparent;cursor:pointer}
+.case-b{overflow-y:auto;padding:22px 22px calc(28px + env(safe-area-inset-bottom,0px));display:grid;gap:20px;align-content:start}
+.case-b h2{font-size:2rem;line-height:1.1}
+.case-b .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:12px}
+.case-b .meta div{padding:10px 14px;display:grid;gap:2px;font-size:.86rem}
+.case-b .meta div+div{border-left:1px solid var(--line)}
+.case-b .meta dt{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.case-b .meta dd{margin:0}
+@media (max-width:560px){.case-b .meta{grid-template-columns:1fr}.case-b .meta div+div{border-left:0;border-top:1px solid var(--line)}}
+.case-b h5{margin:0 0 6px;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.case-b ul{margin:0;padding-left:18px;display:grid;gap:5px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.flow span{font-family:var(--mono);font-size:.74rem;border:1px solid var(--line);background:var(--raise);border-radius:8px;padding:6px 10px}
+.flow i{color:var(--accent);font-style:normal}
+.impact{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:12px}
+.impact div{padding:12px 14px}
+.impact div+div{border-left:1px solid var(--line)}
+.impact b{display:block;font-family:var(--serif);font-weight:400;font-size:1.7rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.impact small{color:var(--muted);font-size:.76rem}
+.nda{font-size:.82rem;color:var(--muted);border-left:3px solid var(--accent);padding-left:12px}
+</style>
+</head>
+<body>
+
+
+<!-- =========================================================
+     VIEW 1 · PORTFOLIO
+========================================================= -->
+<div id="vPort">
+  <nav class="top gut">
+    <div class="wide navin">
+      <a class="brand" href="#" data-top><span class="mark">W</span>William Demillo</a>
+      <div class="navlinks"><a href="#about">About</a><a href="#projects">Projects</a><a href="#achievements">Experience</a><a href="#contact">Contact</a></div>
+      <div class="theme" data-theme-slot></div>
+      <button class="askai" data-go-chat><span class="spark">✦</span>Ask my assistant</button>
+    </div>
+  </nav>
+
+  <div class="gut">
+    <header class="wide" id="about">
+      <div class="hero">
+        <div class="pfp"><img src="assets/avatar.jpg" alt="William Jefferson Demillo"><span class="on">Open to work</span></div>
+        <div class="txt">
+          <span class="role">developer &amp; founder · Pamantasan ng Cabuyao</span>
+          <h1>William Jefferson <em>Demillo</em></h1>
+          <p class="bio">I build software that runs on its own: Discord bots that watch markets in real time, game automation that acts like a real player, and a school gate system that texts parents. I also co-founded a trading business that did $294K in sales, and my team placed 3rd nationally at the Byte Forward Hackathon.</p>
+          <div class="cta">
+            <a class="btn ink" href="#projects">View projects</a>
+            <a class="btn" href="#" onclick="return false">Résumé ↓</a>
+            <a class="btn" href="https://github.com/knownAsWillz" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="btn" href="https://www.linkedin.com/in/williamdemillo" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
         </div>
+      </div>
+      <div class="band">
+        <span class="mark">✦</span>
+        <div><b>Hiring? Check my fit in 30 seconds.</b><span>Paste your job post and my assistant matches it against my skills and projects, including gaps.</span></div>
+        <button class="btn pri" data-go-chat="fit">Check job fit →</button>
+      </div>
     </header>
-    <body>
-        <div class="home" id="home">
-            <div class="labels">
-                <h1 id="work">Future Backend Developer</h1>
-                <h1 id="myName">William Jefferson Demillo</h1>
-                <div class="page">  
-                </div>
-                <div class="links">
-                    <a href="https://www.facebook.com/mynameiswillz" target="_blank">
-                        <img src="img/fb.png" id="fb">
-                    </a>
-                    <a href="https://leetcode.com/william_jefferson/" target="_blank">
-                        <img src="img/leetcode.png" id="leet">
-                    </a>
-                    <a href="https://twitter.com/willzismyname" target="_blank">
-                        <img src="img/twt.png" id="twt">
-                    </a>
-                </div>                
-            </div>
-        
-            <div class="image">
-                <img id="myPic" src="img/bb.jpg">
-            </div>
+
+    <section class="wide sec" id="projects">
+      <div class="sec-head">
+        <div class="g"><span class="eyebrow">Selected work</span><h2>Projects</h2><p>Bots, game mods and hardware. Private projects have case studies instead of code, and the assistant can explain any of them.</p></div>
+        <div class="filters" id="filters" role="group" aria-label="Filter projects">
+          <button data-f="all" aria-pressed="true">All</button><button data-f="Bots" aria-pressed="false">Bots</button><button data-f="Game mods" aria-pressed="false">Game mods</button><button data-f="Hardware" aria-pressed="false">Hardware</button>
         </div>
-        
-        <div class="about" id="aabbout">
-            <div class="aboutme">
-                <h1>About Me</h1>
-                <p class="describeme" id="aboutText">
-                </p>
+      </div>
+      <div class="pgrid" id="pgrid"></div>
+    </section>
+
+    <section class="wide sec" id="achievements">
+      <div class="sec-head"><div class="g"><span class="eyebrow">Track record</span><h2>Experience</h2><p>Ventures I've run and competitions I've placed in, newest first.</p></div></div>
+      <ol class="tline">
+        <li class="ti">
+          <div class="when">Recent</div>
+          <div class="tcard">
+            <div class="thead"><span class="kind">Venture · Co-founder</span><h3>Game-currency trading business</h3><p>A two-person partnership buying and selling in-game currency, with profit split 50/50 between my partner and me.</p></div>
+            <div class="nums">
+              <div><b>$294K+</b><small>Gross sales</small></div>
+              <div><b>$16K+</b><small>Total profit</small></div>
+              <div><b>5.6%</b><small>Net margin</small></div>
+              <div><b>131%</b><small>Return on my capital</small></div>
             </div>
-            <div class="achievements">
-                <h1>Achievements</h1>
-                <div class="achievementcategory">
-                    <div class="jhs">
-                        <h1 style="color: #ee991a;">Junior Highschool</h1>
-                        <h4>Champion - Panlalawigan History Quiz Bee</h4>
-                        <h4>1st Runner-Up - Panlalawigan EnviSci History Quiz Bee</h4>
-                        <h4>1st Runner-Up - PaSciekLaban Video Game Creation</h4>
-                        <h4>3rd Runner-Up - Robotics Line Tracing</h4>
-                        <h4>SSG Treasurer - S.Y. 2017-2018</h4>
-                        <h4>SSG Treasurer - S.Y. 2018-2019</h4>
-                    </div>
-                    <div class="shs">
-                        <h1 style="color: #ee991a;">Senior Highschool</h1>
-                        <h4>1st Runner-Up - Panlalawigan History Quiz Bee</h4>
-                        <h4>1st Runner-Up - CODEX SHS Programming Competition</h4>
-                        <h4>Top 15 in a class of 900+ graduates</h4>
-                    </div>
-                </div>
+            <p class="foot">Profit split 50/50 with my partner. Return is my share against the capital I put in myself.</p>
+          </div>
+        </li>
+        <li class="ti">
+          <div class="when">Hackathon</div>
+          <div class="tcard">
+            <div class="thead"><span class="kind">Competition · Team Cabuyao, Pamantasan ng Cabuyao</span><h3>Byte Forward Hackathon</h3></div>
+            <ul class="places">
+              <li><span class="medal"></span><div><b>3rd Place · National Finals</b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
+              <li><span class="medal"></span><div><b>3rd Place · South Luzon Leg</b><small>Regional qualifier</small></div><span class="lvl">Regional</span></li>
+            </ul>
+          </div>
+        </li>
+        <li class="ti">
+          <div class="when">Earlier</div>
+          <div class="tcard">
+            <div class="thead"><span class="kind">Venture</span><h3>GoPrint</h3><p>An automated printing vending machine. Users connect to its Wi-Fi, send the file they want printed, and the machine's screen tells them how much to pay. Once they pay, it prints. No attendant, no USB stick, no cables.</p></div>
+            <div class="flow"><span>Connect to Wi-Fi</span><i>→</i><span>Send file</span><i>→</i><span>Screen shows price</span><i>→</i><span>Pay</span><i>→</i><span>Print</span></div>
+          </div>
+        </li>
+      </ol>
+      <div class="certrow">
+        <span class="kind">Certifications</span>
+        <div class="cert"><span class="seal">C</span><div><b>Certification name <span class="sample">Sample</span></b><small>Issuing organization · year</small></div><a href="#" onclick="return false">Verify ↗</a></div>
+      </div>
+    </section>
+
+    <section class="col contact" id="contact">
+      <span class="eyebrow">Contact</span>
+      <h2>Let's build <em>something.</em></h2>
+      <p>Open to internships, junior backend roles and interesting side projects. Email me, or have my assistant draft the message for you.</p>
+      <div class="copy"><span class="email">demillowillz@gmail.com</span><button type="button" data-copy-email>Copy</button></div>
+      <div class="socials">
+        <button class="btn ai" data-go-chat="write">✦ Draft a message with AI</button>
+        <a class="btn" href="https://github.com/knownAsWillz" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn" href="https://www.linkedin.com/in/williamdemillo" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn" href="https://www.facebook.com/mynameiswillz" target="_blank" rel="noopener">Facebook ↗</a>
+      </div>
+    </section>
+    <footer class="wide foot"><span>© 2026 William Jefferson Demillo</span><span><span class="sample">Design preview</span> dashed text and “Sample” items are still placeholders</span></footer>
+  </div>
+</div>
+
+<!-- =========================================================
+     VIEW 2 · ASSISTANT (full page)
+========================================================= -->
+<div id="vChat" hidden>
+  <div class="chatapp">
+    <aside class="cside">
+      <div class="brand"><span class="mark">W</span>willz</div>
+      <button class="sbtn" data-go-port><span class="ico">←</span>Back to portfolio</button>
+      <button class="sbtn new" data-new><span class="ico">+</span>New chat</button>
+      <div class="slabel">What I can do</div>
+      <button class="sbtn" data-tool="fit"><span class="ico">⚖</span>Check job fit</button>
+      <button class="sbtn" data-tool="find"><span class="ico">⌕</span>Find a project</button>
+      <button class="sbtn" data-tool="explain"><span class="ico">¶</span>Explain a project</button>
+      <button class="sbtn" data-tool="awards"><span class="ico">★</span>Achievements</button>
+      <button class="sbtn" data-tool="ventures"><span class="ico">↗</span>Ventures</button>
+      <button class="sbtn" data-tool="write"><span class="ico">✉</span>Write to William</button>
+      <div class="sfoot"><img src="assets/avatar.jpg" alt=""><div><b>William J. Demillo</b><small>Developer &amp; founder</small></div></div>
+    </aside>
+
+    <div class="cmain">
+      <header class="chead">
+        <button class="backbtn m" data-go-port>← Portfolio</button>
+        <div class="t"><b>William's assistant</b> <span>· knows his projects, skills and experience</span></div>
+        <div class="r"><div class="theme" data-theme-slot></div></div>
+      </header>
+
+      <main class="thread" id="thread">
+        <section class="welcome" id="welcome">
+          <h1><span class="mark">W</span>What can I help with?</h1>
+          <p>I answer only from William's portfolio, and every answer shows which part it came from. Pick a task or just ask.</p>
+          <div class="tools">
+            <button class="tool" data-tool="fit"><span class="ico">⚖</span><b>Check job fit</b><span>Paste a job post. Get matches, gaps and relevant projects.</span></button>
+            <button class="tool" data-tool="find"><span class="ico">⌕</span><b>Find a project</b><span>“Something with databases” → the right projects.</span></button>
+            <button class="tool" data-tool="explain"><span class="ico">¶</span><b>Explain a project</b><span>In plain words for recruiters, or in depth for engineers.</span></button>
+            <button class="tool" data-tool="awards"><span class="ico">★</span><b>Achievements</b><span>Hackathon placings, national and regional.</span></button>
+            <button class="tool" data-tool="ventures"><span class="ico">↗</span><b>Ventures</b><span>Businesses he has run, with real numbers.</span></button>
+            <button class="tool" data-tool="write"><span class="ico">✉</span><b>Write to William</b><span>Turn a few details into an email you can send him.</span></button>
+          </div>
+        </section>
+        <div id="log" style="display:flex;flex-direction:column;gap:24px" aria-live="polite"></div>
+      </main>
+
+      <form class="composer" id="form">
+        <div class="cwrap">
+          <div class="mode" id="mode" hidden><span>Mode:</span><b id="modeName"></b><button type="button" id="modeX">cancel</button></div>
+          <div class="ibox">
+            <textarea id="text" rows="1" placeholder="Ask about William's skills, projects or experience…" aria-label="Message"></textarea>
+            <div class="bar">
+              <span class="quota" title="Questions this session"><span class="pips" id="pips"></span><span id="qtxt">10 left</span></span>
+              <span class="model">Llama 3.1 8B · Workers AI</span>
+              <button class="send" id="send" type="submit" aria-label="Send">↑</button>
             </div>
-            
+          </div>
+          <p class="fine">10 questions per session · answers come only from William's portfolio and can still be wrong</p>
         </div>
-            
-        <script src="scripts/script.js"></script>
-    </body>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="caseRoot"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  /* ================= DATA (one source for both views) ================= */
+  const EMAIL='demillowillz@gmail.com';
+  const SKILLS={'node':'Node.js','node.js':'Node.js','nodejs':'Node.js','javascript':'JavaScript','js':'JavaScript','java':'Java','websocket':'WebSockets','websockets':'WebSockets','real-time':'Real-time systems','realtime':'Real-time systems','rest':'REST APIs','api':'REST APIs','apis':'REST APIs','git':'Git','github':'Git','gradle':'Gradle','ci/cd':'CI/CD','github actions':'CI/CD','linux':'Linux','systemd':'Linux','discord':'Discord bots','bot':'Discord bots','encryption':'Encryption','aes':'Encryption','serial':'Hardware / serial','iot':'Hardware / serial','hardware':'Hardware / serial','scraping':'Web scraping','scraper':'Web scraping','json':'JSON','rate limit':'Rate limiting','algorithm':'Algorithms'};
+  const GAPS={'typescript':'TypeScript','python':'Python','sql':'SQL databases','postgres':'SQL databases','postgresql':'SQL databases','mysql':'SQL databases','mongodb':'MongoDB','redis':'Redis','docker':'Docker','kubernetes':'Kubernetes','k8s':'Kubernetes','aws':'AWS','azure':'Azure','gcp':'Google Cloud','spring':'Spring','c#':'C#','.net':'.NET','graphql':'GraphQL','kafka':'Kafka','terraform':'Terraform','php':'PHP','laravel':'Laravel','react':'React','go':'Go','golang':'Go'};
+  const P=[
+    {id:'spread',cat:'Bots',priv:true,name:'Market Spread Bot',desc:'A Discord bot that tracks in-game coin prices across several markets in real time, shows the live spread, and alerts traders to profitable flips.',tags:['Node.js','discord.js','WebSockets','REST APIs','systemd'],kw:'discord bot realtime real-time websocket api scraping rate limit alerts market price node javascript backend performance',
+     shot:`<span class="k">/spread</span>                    <span class="s">● live</span>
+Marketplace (trusted) $13.20/b
+after fees  ×0.875   $11.56/b
+
+vs Market A $12.00     −0.44
+vs Market B $11.00     <span class="s">+0.56 ▲</span>
+vs Market C $10.50     <span class="s">+1.06 ▲</span>`,
+     cs:{type:'Personal project',platform:'Discord',runs:'24/7 on Linux (systemd)',
+       problem:'Prices for the currency in an online game were spread across a marketplace and several Discord buy-markets. Traders checked each one by hand to find a gap between buy and sell prices, and missed flips while doing it.',
+       built:['/spread: the cheapest trusted marketplace price, what it nets after fees, and profit against each buy market','/market: most common, highest and average price per market over a rolling 6-hour window, with movement vs. the last window','A live order-book board: one self-editing message with paging, sorting, pause/resume and adjustable refresh','Profit alerts that ping a channel or chosen users when the spread beats a threshold','Built-in calculator and fee helpers, with settings saved per server'],
+       flow:['Marketplace API','Discord markets','Parser + filters','Spread engine','Alerts + live board'],
+       stats:[['3','buy markets tracked'],['~185','offers per refresh'],['10–300s','rate-limit-safe refresh']],
+       eng:['Never blends markets that pay differently, so profit is never overstated','Filters fake "cheap" listings by reviews, feedback and minimum order, and shows what it filtered and why','Alerts fire only after a price holds for two polls, then each offer goes quiet for 30 minutes','On HTTP 429 the board backs off, turns amber and keeps the last good data instead of going blank','Auto-reconnecting WebSocket with capped exponential backoff, plus a 5-minute reconcile so nothing is missed','Atomic JSON store: each alert fires at most once, even across restarts']},
+     rec:"Market Spread Bot is a Discord bot William built that watches prices across several online markets at once and alerts users the moment buying in one and selling in another becomes profitable. It runs 24/7, handles rate limits and outages on its own, and was built to give numbers people can trust rather than optimistic ones.",
+     eng:"Node.js with discord.js. It polls the marketplace API, which ignores sort parameters, so it fetches the whole book (~185 offers in two requests) and sorts locally. Buy markets are parsed from chat, bot embeds and channel names, and never merged into one average. Listings pass trust filters (reviews, feedback, minimum order). Alerts need two consecutive polls to fire, then debounce for 30 minutes. Refresh is clamped to 10–300 s, and on a 429 it backs off while serving the last good data. Its notifier uses a reconnecting WebSocket with capped exponential backoff and a heartbeat, with REST reconciliation every 5 minutes and an atomic JSON store for exactly-once alerts. The code is private, so that's as deep as I can go."},
+    {id:'mcaddon',cat:'Game mods',priv:true,name:'Minecraft Automation Addon',desc:'A modular Minecraft client addon that automates in-game tasks with human-like timing, and reports its status to Discord.',tags:['Java','Fabric','Mixin','Gradle','GitHub Actions'],kw:'java minecraft mod modular automation timing distribution discord webhook status gradle ci game',
+     shot:`[addon] modules
+  ● Automation     on
+  ● HumanTiming    on
+  ○ Overlay        off
+
+next action   ~ sample(dist) + jitter
+              → 412 ms
+<span class="s">[discord]</span> status: running · 3h 12m`,
+     cs:{type:'Personal project',platform:'Minecraft (Fabric)',runs:'Built with Gradle + GitHub Actions',
+       problem:'Repetitive in-game tasks took hours of manual play, and a bot with fixed, robotic timing is easy to spot and breaks easily.',
+       built:['A modular addon: each behavior is its own module you can toggle and configure in-game, with custom commands and HUD elements','Human-like timing: delays come from a statistical distribution with jitter instead of a fixed interval','Behavior imitation, so actions look like a real player instead of a script','Discord status notifications, so you always know whether the bot is running, stopped or needs attention','Kept up to date across Minecraft versions'],
+       flow:['Game client','Mixin hooks','Module system','Timing engine','Discord status'],
+       stats:[['Modular','toggle each feature'],['Randomized','human-like timing'],['Discord','live status alerts']],
+       eng:['Injects into the game client with Mixin to read state and send input','Timing sampled from a distribution with jitter, not a fixed delay','Remote status alerts to Discord, so it can run unattended','CI builds the JAR on every push and pull request']},
+     rec:"This is a Minecraft add-on William built that automates repetitive in-game tasks. It's split into modules you can switch on and off, it times its actions like a real person instead of a robot, and it sends status updates to Discord so you know it's still running without watching the screen.",
+     eng:"Java on Fabric, built as a Meteor Client addon. It hooks the client with Mixin, and each behavior is a separate module with its own settings, plus commands and HUD elements. Action delays are sampled from a statistical distribution with jitter rather than fixed intervals. Status updates go to Discord. Gradle (Kotlin DSL) build, with GitHub Actions CI on pushes and PRs. The code is private, so I can't share the exact timing parameters."},
+    {id:'attendance',cat:'Hardware',name:'Attendance Tracker',desc:'My Grade 12 research project: students scan their ID at the school gate and their parent gets a text within seconds, sent through a GSM modem with no internet needed.',tags:['Node.js','GSM modem','Serial / AT commands','AES-256'],kw:'hardware iot serial sms gsm modem attendance school node javascript encryption barcode research thesis',
+     repo:'https://github.com/knownAsWillz/Research-2022',
+     shot:`> 2023-0142
+<span class="s">✓</span> Juan D. · ENTERED · 7:02 AM
+
+<span class="k">AT+CMGS</span>="+63•••••••••"
+"Juan D. has entered the school
+ premises at 7:02 AM"
+<span class="s">OK</span>`,
+     rec:"Attendance Tracker was William's Grade 12 research project. Students scan their ID at the school gate, and their parent instantly gets a text saying they arrived or left. It sends the text through a GSM modem, so it works even without internet, which mattered because not every parent has mobile data.",
+     eng:"Node.js talking to a GSM modem over a serial port with AT commands (serialport-gsm). A barcode scanner feeds student IDs in as input. Each scan toggles the student's in/out status, logs it, and sends an SMS. Students can also check in by texting their ID to the modem. Records are stored AES-256 encrypted. Looking back, William would move the key to an environment variable, use createCipheriv with a random IV, and replace the JSON file with SQLite."}
+  ];
+  const projById=id=>P.find(p=>p.id===id);
+
+  /* ================= THEME ================= */
+  const root=document.documentElement;
+  const NAMES={system:'System',ivory:'Ivory',charcoal:'Charcoal',midnight:'Midnight',sage:'Sage'};
+  const DOTS={system:['linear-gradient(135deg,#FAF9F5 50%,#262624 50%)','#C96442'],ivory:['#FAF9F5','#C96442'],charcoal:['#262624','#D97757'],midnight:['#0F1218','#8AA8FF'],sage:['#F4F5F0','#4F7A5A']};
+  const dot=k=>`<span class="dot" style="background:${DOTS[k][0]}"><i style="background:${DOTS[k][1]}"></i></span>`;
+  $$('[data-theme-slot]').forEach(s=>{s.innerHTML=`<button class="tbtn" aria-haspopup="true" aria-expanded="false" aria-label="Theme"><span class="cur"></span><span class="lbl"></span></button><div class="tmenu" role="menu" hidden>${Object.keys(NAMES).map(k=>`<button role="menuitemradio" data-pt="${k}">${dot(k)}${NAMES[k]}</button>`).join('')}</div>`});
+  function theme(t){
+    if(t==='system')root.removeAttribute('data-pt');else root.dataset.pt=t;
+    $$('[data-theme-slot]').forEach(s=>{s.querySelector('.cur').innerHTML=dot(t);s.querySelector('.lbl').textContent=NAMES[t];s.querySelectorAll('[data-pt]').forEach(b=>b.setAttribute('aria-checked',b.dataset.pt===t))});
+    try{localStorage.setItem('wTheme',t)}catch(_){}
+  }
+  const closeMenus=()=>$$('.tmenu').forEach(m=>{m.hidden=true;m.previousElementSibling.setAttribute('aria-expanded','false')});
+  document.addEventListener('click',e=>{
+    const tb=e.target.closest('.tbtn');
+    if(tb){e.stopPropagation();const m=tb.nextElementSibling,open=m.hidden;closeMenus();m.hidden=!open;tb.setAttribute('aria-expanded',open);return}
+    const pt=e.target.closest('[data-pt]');if(pt){theme(pt.dataset.pt);closeMenus();return}
+    if(!e.target.closest('.theme'))closeMenus();
+  });
+  let t0='system';try{t0=localStorage.getItem('wTheme')||'system'}catch(_){}
+  theme(NAMES[t0]?t0:'system');
+
+  /* ================= VIEW SWITCH ================= */
+  const vPort=$('#vPort'),vChat=$('#vChat');let portY=0;
+  function show(v){
+    if(v==='chat'){if(!vChat.hidden)return;portY=scrollY;vPort.hidden=true;vChat.hidden=false;scrollTo(0,0);try{history.replaceState(null,'','#chat')}catch(_){}}
+    else{if(!vPort.hidden)return;vChat.hidden=true;vPort.hidden=false;scrollTo(0,portY);try{history.replaceState(null,'',location.pathname+location.search)}catch(_){}}
+  }
+  addEventListener('hashchange',()=>show(location.hash==='#chat'?'chat':'port'));
+
+  /* ================= PORTFOLIO: projects ================= */
+  const grid=$('#pgrid');
+  function renderProjects(f){
+    grid.innerHTML=P.filter(p=>f==='all'||p.cat===f).map((p,i)=>{const feat=f==='all'&&i===0;return `
+      <article class="proj${feat?' feat':''}" id="p-${p.id}">
+        <div class="shot"><div class="win"><i></i><i></i><i></i></div><pre>${p.shot}</pre></div>
+        <div class="pb"><div class="top">${feat?'Featured · ':''}${p.cat}${p.priv?' <span class="lock">Private code</span>':''}</div>
+          <h3>${p.name}</h3><p>${p.desc}</p>
+          <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+          <div class="pact">${p.priv
+            ?`<button class="btn ink" data-case="${p.id}">Read case study</button><button class="btn" data-walk="${p.id}">Request walkthrough</button>`
+            :`${p.repo?`<a class="btn ink" href="${p.repo}" target="_blank" rel="noopener">Code ↗</a>`:''}`}<button class="btn ai" data-explain="${p.id}">✦ Explain this</button></div>
+        </div></article>`}).join('');
+  }
+  $('#filters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$$('#filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderProjects(b.dataset.f)});
+  renderProjects('all');
+  function gotoProject(id){
+    show('port');$$('#filters button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.f==='all'));renderProjects('all');
+    const el=$('#p-'+id);if(!el)return;
+    requestAnimationFrame(()=>{el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1600)});
+  }
+  function gotoSection(id){show('port');requestAnimationFrame(()=>document.getElementById(id).scrollIntoView({behavior:reduce?'auto':'smooth'}))}
+
+  /* ================= CASE STUDY (private projects) ================= */
+  const caseRoot=$('#caseRoot');
+  function openCase(id){
+    const p=projById(id),c=p.cs;if(!c)return;
+    caseRoot.innerHTML=`<div class="scrim" data-close-case></div>
+      <aside class="case" role="dialog" aria-modal="true" aria-label="${p.name} case study">
+        <div class="case-h"><span class="lock">Private code</span><span>Case study</span><button class="x" data-close-case aria-label="Close">✕</button></div>
+        <div class="case-b">
+          <div class="shot" style="border:1px solid var(--line);border-radius:12px"><div class="win"><i></i><i></i><i></i></div><pre>${p.shot}</pre></div>
+          <h2>${p.name}</h2>
+          <dl class="meta"><div><dt>Type</dt><dd>${c.type}</dd></div><div><dt>Platform</dt><dd>${c.platform}</dd></div><div><dt>Runs</dt><dd>${c.runs}</dd></div></dl>
+          <div><h5>The problem</h5><p>${c.problem}</p></div>
+          <div><h5>What I built</h5><ul>${c.built.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+          <div><h5>How it fits together</h5><div class="flow">${c.flow.map(x=>`<span>${x}</span>`).join('<i>→</i>')}</div></div>
+          <div class="impact">${c.stats.map(s=>`<div><b>${s[0]}</b><small>${s[1]}</small></div>`).join('')}</div>
+          <div><h5>Engineering highlights</h5><ul>${c.eng.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+          <div><h5>Built with</h5><div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>
+          <p class="nda">The source code is private. I'm happy to walk through it live on a call.</p>
+          <div class="pact"><button class="btn pri" data-walk="${p.id}">Request a walkthrough</button><button class="btn ai" data-explain="${p.id}">✦ Ask the assistant</button></div>
+        </div>
+      </aside>`;
+    document.body.style.overflow='hidden';caseRoot.querySelector('.x').focus();
+  }
+  function closeCase(){caseRoot.innerHTML='';document.body.style.overflow=''}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&caseRoot.innerHTML)closeCase()});
+
+  /* ================= CHAT ================= */
+  const LIMIT=10,log=$('#log'),welcome=$('#welcome'),ta=$('#text'),send=$('#send');
+  let used=0,busy=false,mode=null;
+  try{used=+sessionStorage.getItem('wUsed')||0}catch(_){}
+  function pips(){const left=Math.max(0,LIMIT-used);
+    $('#pips').innerHTML=Array.from({length:LIMIT},(_,i)=>`<i class="${i<used?'used':''}"></i>`).join('');
+    $('#qtxt').textContent=left+' left';ta.disabled=send.disabled=left===0;
+    if(!left)ta.placeholder='You’ve used all 10 questions this session. Email still works.'}
+  function spend(){used++;try{sessionStorage.setItem('wUsed',used)}catch(_){};pips()}
+  function setMode(m){mode=m;const names={fit:'Check job fit — paste the job description',write:'Write to William'};
+    $('#mode').hidden=!m;$('#modeName').textContent=m?names[m]||m:'';
+    ta.placeholder=m==='fit'?'Paste the job description here…':'Ask about William\'s skills, projects or experience…';pips()}
+  $('#modeX').addEventListener('click',()=>setMode(null));
+  function down(){const r=log.lastElementChild;if(r)r.scrollIntoView({block:'end',behavior:reduce?'auto':'smooth'})}
+  function user(text){welcome.hidden=true;const d=document.createElement('div');d.className='u'+(text.length>260?' long':'');d.textContent=text;log.appendChild(d);down()}
+  function sys(text){const d=document.createElement('div');d.className='sys';d.textContent=text;log.appendChild(d);down()}
+  // bot(text, extraHTML, sources[]) -> streams text then appends extra
+  function bot(text,extra,sources,after){
+    welcome.hidden=true;busy=true;
+    const a=document.createElement('div');a.className='a';a.innerHTML='<span class="mark">W</span><div class="body"><p class="cursor"></p></div>';log.appendChild(a);down();
+    const p=a.querySelector('p'),body=a.querySelector('.body');
+    const fin=()=>{p.classList.remove('cursor');
+      if(extra)body.insertAdjacentHTML('beforeend',extra);
+      if(sources&&sources.length)body.insertAdjacentHTML('beforeend',`<div class="sources">From the portfolio: ${sources.map(s=>`<button type="button" data-src="${s[0]}">${s[1]}</button>`).join('')}</div>`);
+      busy=false;down();after&&after(body)};
+    setTimeout(()=>{if(reduce){p.textContent=text;fin();return}
+      const w=text.split(/(\s+)/);let i=0;
+      (function step(){if(i<w.length){p.textContent+=w[i]+(w[i+1]||'');i+=2;if(i%10===0)down();setTimeout(step,18+Math.random()*22)}else fin()})()},reduce?0:320);
+  }
+
+  /* ---- tool: job fit ---- */
+  const SAMPLE_JD=`Junior Backend Developer (Remote, PH)
+We're hiring a junior developer to build bots, integrations and REST APIs.
+Requirements:
+- Experience with Node.js / JavaScript
+- Comfortable with REST APIs and WebSockets
+- Familiar with Git and Linux
+- Nice to have: Docker, SQL databases, TypeScript
+- Good communication skills`;
+  function startFit(){
+    user('Check if William fits a job');
+    bot("Sure. Paste the job description in the box below and I'll compare it with his skills and projects. No job post handy? Try a sample.",
+      `<div class="opts"><button class="opt" type="button" data-sample-jd>Use a sample job post</button></div>`,null,()=>{setMode('fit');ta.focus()});
+  }
+  function runFit(jd){
+    const l=jd.toLowerCase(),has=new Set(),miss=new Set();
+    Object.keys(SKILLS).forEach(k=>{if(new RegExp('(^|[^a-z])'+k.replace(/[.+#/]/g,'\\$&')+'([^a-z]|$)').test(l))has.add(SKILLS[k])});
+    Object.keys(GAPS).forEach(k=>{if(new RegExp('(^|[^a-z])'+k.replace(/[.+#/]/g,'\\$&')+'([^a-z]|$)').test(l))miss.add(GAPS[k])});
+    const total=has.size+miss.size, score=total?Math.round(100*has.size/total):50;
+    const verdict=score>=75?['Strong match','Covers most of what this role asks for']:score>=50?['Good match','Covers the core, with a few gaps to learn']:['Partial match','Some overlap, but several gaps'];
+    const rel=P.map(p=>({p,n:p.tags.filter(t=>has.has(t)||(t==='PostgreSQL'&&has.has('SQL'))).length})).filter(x=>x.n).sort((a,b)=>b.n-a.n).slice(0,3);
+    const html=`<div class="box fit">
+      <div class="fit-top"><div class="score">${score}<small>%</small></div><div class="verdict">${verdict[0]}<small>${verdict[1]}</small></div><div class="meter"><i style="width:${score}%"></i></div></div>
+      <div class="fit-cols">
+        <div><h5>Matches</h5><ul>${[...has].map(s=>`<li><span class="y">✓</span>${s}</li>`).join('')||'<li>No listed skills found</li>'}</ul></div>
+        <div><h5>Not in portfolio yet</h5><ul>${[...miss].map(s=>`<li><span class="n">○</span>${s}</li>`).join('')||'<li><span class="y">✓</span>No gaps found</li>'}</ul></div>
+      </div>
+      ${rel.length?`<div><h5>Most relevant projects</h5><div class="rel">${rel.map(x=>`<button type="button" class="mini" data-goto="${x.p.id}"><span class="ic">▤</span><span>${x.p.name}<small>${x.p.tags.slice(0,3).join(' · ')}</small></span></button>`).join('')}</div></div>`:''}
+      <div class="opts"><button type="button" class="opt" data-copy-fit>Copy summary</button><button type="button" class="opt" data-tool="write">Write to William about this role</button></div>
+    </div>`;
+    const txt=`Here's how William lines up with this role. ${has.size} of the ${total||'listed'} skills I could find are covered by his projects${miss.size?`, and ${[...miss].join(', ')} ${miss.size>1?"aren't":"isn't"} in his portfolio yet`:''}.`;
+    window.__fit=`William Demillo vs. this role: ${score}% (${verdict[0]}). Matches: ${[...has].join(', ')||'none'}. Gaps: ${[...miss].join(', ')||'none'}. Relevant projects: ${rel.map(x=>x.p.name).join(', ')||'none'}.`;
+    bot(txt,html,[['projects','Projects'],['about','Stack']]);
+  }
+
+  /* ---- tool: find ---- */
+  const FINDS=[['Discord bots','discord'],['Real-time','realtime'],['Java','java'],['Hardware','hardware'],['APIs','api']];
+  function startFind(){
+    user('Find a project');
+    bot("What are you looking for? Pick a topic or type one, like “something with Redis”.",`<div class="opts">${FINDS.map(f=>`<button type="button" class="opt" data-find="${f[1]}">${f[0]}</button>`).join('')}</div>`);
+  }
+  function runFind(q,label){
+    const l=q.toLowerCase();
+    const hits=P.filter(p=>l.split(/\W+/).some(w=>w.length>2&&(p.kw.includes(w)||p.tags.join(' ').toLowerCase().includes(w))));
+    if(!hits.length){bot(`I couldn't find a project about “${label||q}” in William's portfolio. Try databases, APIs, performance or frontend.`);return}
+    bot(`${hits.length} project${hits.length>1?'s':''} match “${label||q}”:`,
+      `<div class="found">${hits.map(p=>`<button type="button" class="mini" data-goto="${p.id}"><span class="ic">▤</span><span>${p.name}<small>${p.desc}</small></span><span class="go">View →</span></button>`).join('')}</div>`,[['projects','Projects']]);
+  }
+
+  /* ---- tool: explain ---- */
+  function startExplain(id){
+    if(id){const p=projById(id);user('Explain '+p.name);askLevel(p);return}
+    user('Explain a project');
+    bot("Which one?",`<div class="opts">${P.map(p=>`<button type="button" class="opt" data-pick="${p.id}">${p.name}</button>`).join('')}</div>`);
+  }
+  function askLevel(p){bot(`Who's it for? I'll pitch ${p.name} at the right level.`,`<div class="opts"><button type="button" class="opt" data-level="rec" data-id="${p.id}">I'm a recruiter</button><button type="button" class="opt" data-level="eng" data-id="${p.id}">I'm an engineer</button></div>`)}
+  function runExplain(p,lv){bot(lv==='rec'?p.rec:p.eng,`<div class="opts"><button type="button" class="opt" data-goto="${p.id}">View ${p.name} →</button>${lv==='rec'?`<button type="button" class="opt" data-level="eng" data-id="${p.id}">More technical</button>`:`<button type="button" class="opt" data-level="rec" data-id="${p.id}">Simpler, please</button>`}</div>`,[['p-'+p.id,p.name]])}
+
+  /* ---- tool: write ---- */
+  function startWrite(pre){
+    if(!pre)user('Write to William');
+    bot("Tell me a little and I'll draft an email you can send him. Nothing is sent from here.",
+      `<form class="box mform" data-mform>
+        <div class="two"><label>Your name<input id="mf-name" required placeholder="Ana Reyes"></label><label>Company / role<input id="mf-org" placeholder="Acme · Hiring manager"></label></div>
+        <label>Reason<select id="mf-why">${["Internship opportunity","Full-time role","Freelance / project","Project walkthrough","Just saying hi"].map(o=>`<option${pre&&pre.why===o?" selected":""}>${o}</option>`).join("")}</select></label>
+        <label>Anything specific? (optional)<textarea id="mf-note" rows="2" placeholder="e.g. We liked the Attendance Tracker project">${pre&&pre.note?esc(pre.note):""}</textarea></label>
+        <div><button class="btn pri" type="submit">Draft email</button></div>
+      </form>`);
+  }
+  function runWrite(f){
+    const name=f.querySelector('#mf-name').value.trim()||'there',org=f.querySelector('#mf-org').value.trim(),why=f.querySelector('#mf-why').value,note=f.querySelector('#mf-note').value.trim();
+    f.querySelectorAll('input,select,textarea,button').forEach(x=>x.disabled=true);
+    const subj={'Internship opportunity':'Internship opportunity','Full-time role':'Backend role','Freelance / project':'Project inquiry','Project walkthrough':'Project walkthrough request','Just saying hi':'Hello from your portfolio'}[why];
+    const body=`Subject: ${subj}${org?' at '+org.split('·')[0].trim():''}
+
+Hi William,
+
+I'm ${name}${org?', '+org:''}. I came across your portfolio and wanted to reach out about ${why==='Just saying hi'?'your work':'a '+why.toLowerCase()}.${note?`\n\n${note}`:''}
+
+Would you be open to a short chat this week?
+
+Best,
+${name}`;
+    window.__draft=body;
+    bot("Here's a draft. Edit anything you like, then send it from your own email.",
+      `<div class="box draft"><div class="row"><span class="to">To: ${EMAIL}</span></div><pre>${esc(body)}</pre><div class="row"><button type="button" class="btn pri" data-copy-draft>Copy email</button><button type="button" class="btn" data-copy-email>Copy address</button></div></div>`);
+  }
+
+  /* ---- free text ---- */
+  const QA=[
+    [/stack|tech|language|framework|tools?\b|skills?/,"Mostly Node.js and JavaScript for bots and backend services, including Discord bots, REST APIs and WebSockets. He uses Java for Minecraft client mods (Fabric, Mixin, Gradle), and has done hardware work over serial with a GSM modem.",[['about','Stack'],['projects','Projects']]],
+    [/school|study|student|education|course|degree/,"He studies at Pamantasan ng Cabuyao, where his team placed 3rd at the Byte Forward Hackathon national finals.",[['about','About']]],
+    [/award|achiev|won|compet|cert/,"In college, William's team (Team Cabuyao, Pamantasan ng Cabuyao) won 3rd place at the Byte Forward Hackathon national finals, awarded at the 51st Philippine Business Conference and Expo, after also placing 3rd in the South Luzon leg.",[['achievements','Experience']]],
+    [/business|venture|startup|goprint|sales|revenue|profit|entrepreneur|trading|partner/,"William has run two ventures. Most recently he co-founded a game-currency trading business with a partner: over $294K in gross sales and over $16K in profit, split 50/50, a 131% return on his own capital. Before the hackathons he worked on GoPrint, an automated printing vending machine: you connect to its Wi-Fi, send a file, pay the amount shown on screen, and it prints.",[['achievements','Experience']]],
+    [/hire|available|open to|intern|job|work with/,"Yes, he's open to backend internships and junior roles. I can draft a message to him if you'd like.",[['contact','Contact']]],
+    [/contact|email|reach/,"The fastest way is email. I can draft one for you.",[['contact','Contact']]]
+  ];
+  function free(v){
+    const l=v.toLowerCase();
+    if(/fit|job post|job description|requirements/.test(l)&&v.length<120){bot("Paste the job description and I'll check the fit.",null,null,()=>setMode('fit'));return}
+    if(/find|show|any project|projects? (with|about|using)|something with/.test(l)){runFind(v);return}
+    const pm=P.find(p=>l.includes(p.name.toLowerCase())||l.includes(p.id));
+    if(pm&&/explain|how|what|tell/.test(l)){askLevel(pm);return}
+    if(/goprint|print(ing)? (vendo|machine)|vending/.test(l)){PRE.goprint();return}
+    if(/trading|game.?currency|sales|revenue|profit|partner|roi|capital|margin/.test(l)){PRE.trade();return}
+    if(/business|venture|startup|entrepreneur/.test(l)){PRE.ventures();return}
+    if(/award|achiev|\bwon\b|\bwins?\b|compet|hackathon|byte forward|\bplaced?\b|national/.test(l)){PRE.awards();return}
+    for(const [re,t,s] of QA)if(re.test(l)){bot(t,null,s);return}
+    bot("I can only answer from William's portfolio, and that isn't in it. Try asking about his projects, stack, achievements, or whether he fits a role.",
+      `<div class="opts"><button type="button" class="opt" data-tool="fit">Check job fit</button><button type="button" class="opt" data-tool="find">Find a project</button></div>`);
+  }
+
+  /* ---- wiring ---- */
+  /* ---- premade: achievements + ventures ---- */
+  const AWARDS_HTML=`<div class="tcard">
+      <div class="thead"><span class="kind">Competition · Team Cabuyao, Pamantasan ng Cabuyao</span><h3>Byte Forward Hackathon</h3></div>
+      <ul class="places">
+        <li><span class="medal"></span><div><b>3rd Place · National Finals</b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
+        <li><span class="medal"></span><div><b>3rd Place · South Luzon Leg</b><small>Regional qualifier</small></div><span class="lvl">Regional</span></li>
+      </ul></div>`;
+  const TRADE_HTML=`<div class="tcard">
+      <div class="thead"><span class="kind">Venture · Co-founder</span><h3>Game-currency trading business</h3></div>
+      <div class="nums"><div><b>$294K+</b><small>Gross sales</small></div><div><b>$16K+</b><small>Total profit</small></div><div><b>5.6%</b><small>Net margin</small></div><div><b>131%</b><small>Return on his capital</small></div></div>
+      <p class="foot">Profit split 50/50 with his partner. Return is his share against the capital he put in himself.</p></div>`;
+  const GOPRINT_HTML=`<div class="tcard">
+      <div class="thead"><span class="kind">Venture</span><h3>GoPrint</h3></div>
+      <div class="flow"><span>Connect to Wi-Fi</span><i>→</i><span>Send file</span><i>→</i><span>Screen shows price</span><i>→</i><span>Pay</span><i>→</i><span>Print</span></div></div>`;
+  const MORE=(skip)=>`<div class="opts">${[['awards','His achievements'],['trade','The trading business'],['goprint','GoPrint']].filter(x=>x[0]!==skip).map(x=>`<button type="button" class="opt" data-pre="${x[0]}">${x[1]}</button>`).join('')}</div>`;
+  const PRE={
+    awards:()=>bot("In college, William's team, Team Cabuyao from Pamantasan ng Cabuyao, placed 3rd in the Byte Forward Hackathon twice: first in the South Luzon regional leg, then at the national finals, awarded at the 51st Philippine Business Conference and Expo.",AWARDS_HTML+MORE('awards'),[['achievements','Experience']]),
+    ventures:()=>bot("William has run two ventures. The most recent is a game-currency trading business he co-founded with a partner. Before the hackathons, he worked on GoPrint, an automated printing vending machine.",TRADE_HTML+GOPRINT_HTML+`<div class="opts"><button type="button" class="opt" data-pre="trade">More on the trading business</button><button type="button" class="opt" data-pre="goprint">How does GoPrint work?</button></div>`,[['achievements','Experience']]),
+    trade:()=>bot("William co-founded a game-currency trading business with a partner, buying and selling in-game currency and splitting profit 50/50. It did over $294K in gross sales and over $16K in profit, a 5.6% net margin. His half of the profit was a 131% return on the capital he put in himself.",TRADE_HTML+MORE('trade'),[['achievements','Experience']]),
+    goprint:()=>bot("GoPrint is an automated printing vending machine. You connect to its Wi-Fi and send the file you want printed. The screen shows how much to pay, and once you pay, it prints. No attendant, no USB stick, no cables.",GOPRINT_HTML+MORE('goprint'),[['achievements','Experience']])
+  };
+  const PRE_Q={awards:'What has William achieved?',ventures:'What ventures has he run?',trade:'Tell me about the trading business',goprint:'How does GoPrint work?'};
+  function premade(k){if(busy)return;user(PRE_Q[k]);PRE[k]()}
+
+  function tool(t,arg){if(busy)return;setMode(null);
+    if(PRE[t]){premade(t);return}
+    ({fit:startFit,find:startFind,explain:()=>startExplain(arg),write:startWrite})[t]()}
+  function newChat(){log.innerHTML='';welcome.hidden=false;setMode(null);scrollTo(0,0)}
+  $('#form').addEventListener('submit',e=>{e.preventDefault();const v=ta.value.trim();if(!v||busy||used>=LIMIT)return;
+    ta.value='';ta.style.height='auto';user(v);spend();
+    if(mode==='fit'){setMode(null);runFit(v)}else free(v);
+    if(used>=LIMIT)setTimeout(()=>sys('That was the last question for this session. You can still email William.'),1200)});
+  ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&mode!=='fit'){e.preventDefault();$('#form').requestSubmit()}});
+  ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,180)+'px'});
+  log.addEventListener('submit',e=>{const f=e.target.closest('[data-mform]');if(!f)return;e.preventDefault();if(busy)return;runWrite(f)});
+
+  const flash=(b,t)=>{const o=b.textContent;b.textContent=t;setTimeout(()=>b.textContent=o,1500)};
+  const copy=(text,b)=>{try{navigator.clipboard.writeText(text).then(()=>flash(b,'Copied'),()=>flash(b,'Select & copy'))}catch(_){flash(b,'Select & copy')}};
+  document.addEventListener('click',e=>{
+    const t=e.target.closest('button,a,[data-close-case]');if(!t)return;
+    const d=t.dataset;
+    if('goChat' in d){show('chat');if(d.goChat){newChat();tool(d.goChat)}return}
+    if('goPort' in d){show('port');return}
+    if('top' in d){e.preventDefault();scrollTo({top:0,behavior:reduce?'auto':'smooth'});return}
+    if('new' in d){newChat();return}
+    if(d.tool){if(t.classList.contains('opt'))t.disabled=true;if(vChat.hidden){show('chat');newChat()}tool(d.tool);return}
+    if(d.explain){closeCase();show('chat');newChat();tool('explain',d.explain);return}
+    if('sampleJd' in d){if(busy)return;t.disabled=true;setMode(null);user(SAMPLE_JD);runFit(SAMPLE_JD);return}
+    if(d.find){if(busy)return;user(t.textContent);runFind(d.find,t.textContent);return}
+    if(d.pick){if(busy)return;const p=projById(d.pick);t.parentElement.querySelectorAll('button').forEach(x=>x.disabled=true);user(p.name);askLevel(p);return}
+    if(d.level){if(busy)return;const p=projById(d.id);t.parentElement.querySelectorAll('button').forEach(x=>x.disabled=true);user(t.textContent);runExplain(p,d.level);return}
+    if(d.pre){if(busy)return;t.parentElement.querySelectorAll('button').forEach(x=>x.disabled=true);premade(d.pre);return}
+    if(d.case){openCase(d.case);return}
+    if(d.walk){closeCase();const p=projById(d.walk);show('chat');newChat();user('Request a walkthrough of '+p.name);startWrite({why:'Project walkthrough',note:"I'd like a walkthrough of "+p.name+'.'});return}
+    if('closeCase' in d){closeCase();return}
+    if(d.goto){gotoProject(d.goto);return}
+    if(d.src){d.src.startsWith('p-')?gotoProject(d.src.slice(2)):gotoSection(d.src);return}
+    if('copyEmail' in d){copy(EMAIL,t);return}
+    if('copyDraft' in d){copy(window.__draft||'',t);return}
+    if('copyFit' in d){copy(window.__fit||'',t);return}
+  });
+  pips();
+  if(location.hash==='#chat')show('chat');
+})();
+</script>
+
+</body>
 </html>

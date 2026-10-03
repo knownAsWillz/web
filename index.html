@@ -386,6 +386,15 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
 #vPort.entering{animation:portIn .35s ease}
 @keyframes chatIn{from{opacity:0;transform:translateY(22px)}}
 @keyframes portIn{from{opacity:0}}
+/* H4 · hackathon polaroid */
+.places li[data-ph]{cursor:pointer;border-radius:10px;margin-inline:-8px;padding-inline:8px;transition:background-color .2s}
+.places li[data-ph]:hover,.places li[data-ph]:focus-visible,.places li[data-ph].on{background:var(--raise)}
+.cam{font-size:.72rem;color:var(--muted);display:inline-flex;gap:5px;align-items:center;margin-left:6px;font-weight:400}
+.cam::before{content:"";width:12px;height:9px;border:1.5px solid currentColor;border-radius:2px}
+.polaroid{position:fixed;left:0;top:0;width:280px;margin:0;padding:10px 10px 12px;background:#fff;border-radius:6px;box-shadow:0 24px 50px -18px rgba(0,0,0,.45),0 0 0 1px rgba(0,0,0,.06);pointer-events:none;opacity:0;transform:translate(-9999px,0);transition:opacity .18s;z-index:80}
+.polaroid.show{opacity:1}
+.polaroid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;display:block;background:#eee}
+.polaroid figcaption{color:#5b5953;padding-top:8px;font-family:var(--serif);font-style:italic;font-size:.92rem;text-align:center}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important}.hero .pfp .on::before,.livedot,.caret{animation:none}#vChat.entering,#vPort.entering{animation:none}}
 
 /* ---------- private projects: case study ---------- */
@@ -488,8 +497,8 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
           <div class="tcard">
             <div class="thead"><span class="kind">Competition · Team Cabuyao, Pamantasan ng Cabuyao</span><h3>Byte Forward Hackathon</h3></div>
             <ul class="places">
-              <li><span class="medal"></span><div><b>3rd Place · National Finals</b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
-              <li><span class="medal"></span><div><b>3rd Place · South Luzon Leg</b><small>Regional qualifier · Sept 30, 2025</small></div><span class="lvl">Regional</span></li>
+              <li data-ph="nat" tabindex="0"><span class="medal"></span><div><b>3rd Place · National Finals <span class="cam">photo</span></b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
+              <li data-ph="reg" tabindex="0"><span class="medal"></span><div><b>3rd Place · South Luzon Leg <span class="cam">photo</span></b><small>Regional qualifier · Sept 30, 2025</small></div><span class="lvl">Regional</span></li>
             </ul>
           </div>
         </li>
@@ -785,6 +794,31 @@ next action   ~ sample(dist) + jitter
   },3000);
 
 
+  // H4 · hackathon polaroid
+  const PH={nat:{src:'assets/hackathon/nationals.jpg',cap:'National Finals · 51st PBCE',alt:'Team Cabuyao on stage at the Byte Forward Hackathon national finals'},
+            reg:{src:'assets/hackathon/regional.jpg',cap:'South Luzon Leg · Sept 30, 2025',alt:'Team Cabuyao with the third place cheque at the South Luzon leg'}};
+  const pol=document.createElement('figure');pol.className='polaroid';pol.setAttribute('aria-hidden','true');
+  pol.innerHTML='<img alt=""><figcaption></figcaption>';document.body.appendChild(pol);
+  const pImg=pol.querySelector('img'),pCap=pol.querySelector('figcaption');
+  const canHover=matchMedia('(hover: hover)').matches;let rot=-4,polLi=null;
+  function fillPol(k){if(pImg.dataset.k!==k){pImg.src=PH[k].src;pImg.alt=PH[k].alt;pImg.dataset.k=k}pCap.textContent=PH[k].cap;rot=k==='nat'?-4:3}
+  function movePol(x,y){const w=280,h=245;let left=x+24,top=y-h/2;if(left+w>innerWidth-12)left=x-w-24;if(left<12)left=12;top=Math.max(12,Math.min(innerHeight-h-12,top));pol.style.transform=`translate(${left}px,${top}px) rotate(${rot}deg)`}
+  function hidePol(){pol.classList.remove('show');if(polLi){polLi.classList.remove('on');polLi=null}}
+  document.addEventListener('mouseover',e=>{if(!canHover)return;const li=e.target.closest('li[data-ph]');if(li&&!li.contains(e.relatedTarget)){fillPol(li.dataset.ph);pol.classList.add('show');movePol(e.clientX,e.clientY)}});
+  document.addEventListener('mouseout',e=>{const li=e.target.closest('li[data-ph]');if(li&&!li.contains(e.relatedTarget))hidePol()});
+  document.addEventListener('mousemove',e=>{if(canHover&&pol.classList.contains('show'))movePol(e.clientX,e.clientY)});
+  document.addEventListener('focusin',e=>{const li=e.target.closest&&e.target.closest('li[data-ph]');if(li&&canHover){const r=li.getBoundingClientRect();fillPol(li.dataset.ph);pol.classList.add('show');movePol(r.right-60,r.top+r.height/2)}});
+  document.addEventListener('focusout',e=>{if(e.target.closest&&e.target.closest('li[data-ph]'))hidePol()});
+  document.addEventListener('click',e=>{
+    if(canHover)return;const li=e.target.closest('li[data-ph]');
+    if(!li){if(polLi)hidePol();return}
+    if(polLi===li){hidePol();return}
+    hidePol();polLi=li;li.classList.add('on');fillPol(li.dataset.ph);rot=0;pol.classList.add('show');
+    const r=li.getBoundingClientRect();pol.style.transform=`translate(${Math.max(12,(innerWidth-280)/2)}px,${Math.min(innerHeight-257,r.bottom+8)}px)`;
+  });
+  addEventListener('scroll',()=>{if(!canHover&&polLi)hidePol()},{passive:true});
+  addEventListener('load',()=>setTimeout(()=>Object.values(PH).forEach(p=>{const i=new Image();i.src=p.src}),1500));
+
   /* ================= CASE STUDY (private projects) ================= */
   const caseRoot=$('#caseRoot');
   function openCase(id){
@@ -958,8 +992,8 @@ ${name}`;
   const AWARDS_HTML=`<div class="tcard">
       <div class="thead"><span class="kind">Competition · Team Cabuyao, Pamantasan ng Cabuyao</span><h3>Byte Forward Hackathon</h3></div>
       <ul class="places">
-        <li><span class="medal"></span><div><b>3rd Place · National Finals</b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
-        <li><span class="medal"></span><div><b>3rd Place · South Luzon Leg</b><small>Regional qualifier · Sept 30, 2025</small></div><span class="lvl">Regional</span></li>
+        <li data-ph="nat" tabindex="0"><span class="medal"></span><div><b>3rd Place · National Finals <span class="cam">photo</span></b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
+        <li data-ph="reg" tabindex="0"><span class="medal"></span><div><b>3rd Place · South Luzon Leg <span class="cam">photo</span></b><small>Regional qualifier · Sept 30, 2025</small></div><span class="lvl">Regional</span></li>
       </ul></div>`;
   const TRADE_HTML=`<div class="tcard">
       <div class="thead"><span class="kind">Venture · Co-founder</span><h3>Game-currency trading business</h3></div>

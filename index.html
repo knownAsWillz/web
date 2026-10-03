@@ -315,13 +315,13 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
 .kind{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .thead h3{font-size:1.45rem;line-height:1.15}
 .thead p{color:var(--muted);font-size:.93rem;max-width:64ch}
-.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;background:var(--bg)}
 .nums div{padding:12px 14px;display:grid;gap:2px}
 .nums div+div{border-left:1px solid var(--line)}
 .nums b{font-family:var(--serif);font-weight:400;font-size:1.45rem;line-height:1.1;font-variant-numeric:tabular-nums}
 .nums div:first-child b{color:var(--accent)}
 .nums small{color:var(--muted);font-size:.76rem}
-@media (max-width:720px){.nums{grid-template-columns:1fr 1fr}.nums div:nth-child(3){border-left:0}.nums div:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:720px){.nums div{padding:10px}.nums b{font-size:1.15rem}}
 .tcard .foot{font-size:.84rem;color:var(--muted)}
 .places{list-style:none;margin:0;padding:0;display:grid}
 .places li{display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
@@ -335,6 +335,54 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
 .certrow .cert.soon .seal{color:var(--muted)}
 .certrow .cert{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
 @media (max-width:640px){.certrow{grid-template-columns:1fr;gap:6px}.certrow .kind{text-align:left;padding:0}}
+
+/* =================== MOTION =================== */
+/* S1 · sections ease in (only when JS adds .rv) */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)!important}
+.rv.in{opacity:1;transform:none}
+/* S2 · timeline draws itself */
+.motion .ti::before{transform:scaleY(0);transform-origin:top;transition:transform .9s ease .25s}
+.motion .ti.drawn::before{transform:scaleY(1)}
+.motion .ti .when::after{transform:scale(0);transition:transform .45s cubic-bezier(.3,1.6,.5,1) .1s}
+.motion .ti.drawn .when::after{transform:scale(1)}
+/* H1 · project code preview lights up */
+.shot .ln{display:block;transition:opacity .3s ease calc(var(--i) * 70ms)}
+@media (hover:hover){.proj .shot .ln{opacity:.45}.proj:hover .shot .ln,.proj:focus-within .shot .ln{opacity:1}}
+/* H2 · assistant button sparkle */
+.askai{position:relative;overflow:hidden}
+.askai .spark{display:inline-block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.askai::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-20deg);pointer-events:none}
+.askai:hover .spark,.askai:focus-visible .spark{transform:rotate(180deg) scale(1.2)}
+.askai:hover::after,.askai:focus-visible::after{animation:sheen .8s ease}
+@keyframes sheen{to{left:130%}}
+/* H3 · theme switch ripple (View Transitions) */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+/* A1 · open-to-work pulse */
+.hero .pfp .on::before{animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--good) 55%,transparent)}80%,100%{box-shadow:0 0 0 7px transparent}}
+/* A2 · live bot preview */
+.livedot{animation:breathe 1.8s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.3}}
+.tk{border-radius:3px;transition:background-color .6s ease,color .4s}
+.tk.tick{background-color:color-mix(in srgb,var(--accent) 22%,transparent)}
+/* L2 · typed name caret */
+.caret{display:inline-block;width:.07em;height:.85em;background:var(--accent);margin-left:.06em;vertical-align:-.05em;animation:blink 1s steps(2) infinite}
+/* T1 · switch to the assistant */
+#vPort.leaving{opacity:0;transform:scale(.985);transition:opacity .17s ease,transform .17s ease}
+#vChat.entering{animation:chatIn .5s cubic-bezier(.2,.8,.2,1)}
+#vPort.entering{animation:portIn .35s ease}
+@keyframes chatIn{from{opacity:0;transform:translateY(22px)}}
+@keyframes portIn{from{opacity:0}}
+/* H4 · hackathon polaroid */
+.places li[data-ph]{cursor:pointer;border-radius:10px;margin-inline:-8px;padding-inline:8px;transition:background-color .2s}
+.places li[data-ph]:hover,.places li[data-ph]:focus-visible,.places li[data-ph].on{background:var(--raise)}
+.cam{font-size:.72rem;color:var(--muted);display:inline-flex;gap:5px;align-items:center;margin-left:6px;font-weight:400}
+.cam::before{content:"";width:12px;height:9px;border:1.5px solid currentColor;border-radius:2px}
+.polaroid{position:fixed;left:0;top:0;width:280px;margin:0;padding:10px 10px 12px;background:#fff;border-radius:6px;box-shadow:0 24px 50px -18px rgba(0,0,0,.45),0 0 0 1px rgba(0,0,0,.06);pointer-events:none;opacity:0;transform:translate(-9999px,0);transition:opacity .18s;z-index:80}
+.polaroid.show{opacity:1}
+.polaroid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;display:block;background:#eee}
+.polaroid figcaption{color:#5b5953;padding-top:8px;font-family:var(--serif);font-style:italic;font-size:.92rem;text-align:center}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important}.hero .pfp .on::before,.livedot,.caret{animation:none}#vChat.entering,#vPort.entering{animation:none}}
 
 /* ---------- private projects: case study ---------- */
 .lock{display:inline-flex;align-items:center;gap:5px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--ink);background:var(--raise);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
@@ -388,7 +436,7 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
         <div class="pfp"><img src="assets/avatar.jpg" alt="William Jefferson Demillo"><span class="on">Open to work</span></div>
         <div class="txt">
           <span class="role">developer &amp; founder · Pamantasan ng Cabuyao</span>
-          <h1>William Jefferson <em>Demillo</em></h1>
+          <h1 id="heroName" aria-label="William Jefferson Demillo">William Jefferson <em>Demillo</em></h1>
           <p class="bio">I build software that runs on its own: Discord bots that watch markets in real time, game automation that acts like a real player, and a school gate system that texts parents. I also co-founded a trading business that did $294K in sales, and my team placed 3rd nationally at the Byte Forward Hackathon.</p>
           <div class="cta">
             <a class="btn ink" href="#projects">View projects</a>
@@ -426,9 +474,9 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
               <div><b>$294K+</b><small>Gross sales</small></div>
               <div><b>$16K+</b><small>Total profit</small></div>
               <div><b>5.6%</b><small>Net margin</small></div>
-              <div><b>131%</b><small>Return on my capital</small></div>
+              
             </div>
-            <p class="foot">Profit split 50/50 with my partner. Return is my share against the capital I put in myself.</p>
+            <p class="foot">Profit split 50/50 with my partner.</p>
           </div>
         </li>
         <li class="ti">
@@ -436,8 +484,8 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
           <div class="tcard">
             <div class="thead"><span class="kind">Competition · Team Cabuyao, Pamantasan ng Cabuyao</span><h3>Byte Forward Hackathon</h3></div>
             <ul class="places">
-              <li><span class="medal"></span><div><b>3rd Place · National Finals</b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
-              <li><span class="medal"></span><div><b>3rd Place · South Luzon Leg</b><small>Regional qualifier</small></div><span class="lvl">Regional</span></li>
+              <li data-ph="nat" tabindex="0"><span class="medal"></span><div><b>3rd Place · National Finals <span class="cam">photo</span></b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
+              <li data-ph="reg" tabindex="0"><span class="medal"></span><div><b>3rd Place · South Luzon Leg <span class="cam">photo</span></b><small>Regional qualifier · Sept 30, 2025</small></div><span class="lvl">Regional</span></li>
             </ul>
           </div>
         </li>
@@ -467,7 +515,7 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
         <a class="btn" href="https://www.facebook.com/mynameiswillz" target="_blank" rel="noopener">Facebook ↗</a>
       </div>
     </section>
-    <footer class="wide foot"><span>© 2026 William Jefferson Demillo</span><span><span class="sample">Design preview</span> dashed text and “Sample” items are still placeholders</span></footer>
+    <footer class="wide foot"><span>© 2026 William Jefferson Demillo</span></footer>
   </div>
 </div>
 
@@ -545,13 +593,13 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
   const GAPS={'typescript':'TypeScript','python':'Python','sql':'SQL databases','postgres':'SQL databases','postgresql':'SQL databases','mysql':'SQL databases','mongodb':'MongoDB','redis':'Redis','docker':'Docker','kubernetes':'Kubernetes','k8s':'Kubernetes','aws':'AWS','azure':'Azure','gcp':'Google Cloud','spring':'Spring','c#':'C#','.net':'.NET','graphql':'GraphQL','kafka':'Kafka','terraform':'Terraform','php':'PHP','laravel':'Laravel','react':'React','go':'Go','golang':'Go'};
   const P=[
     {id:'spread',cat:'Bots',priv:true,name:'Market Spread Bot',desc:'A Discord bot that tracks in-game coin prices across several markets in real time, shows the live spread, and alerts traders to profitable flips.',tags:['Node.js','discord.js','WebSockets','REST APIs','systemd'],kw:'discord bot realtime real-time websocket api scraping rate limit alerts market price node javascript backend performance',
-     shot:`<span class="k">/spread</span>                    <span class="s">● live</span>
-Marketplace (trusted) $13.20/b
-after fees  ×0.875   $11.56/b
+     shot:`<span class="k">/spread</span>                    <span class="s livedot">● live</span>
+Marketplace (trusted) <span class="tk" data-k="mp">$13.20</span>/b
+after fees  ×0.875   <span class="tk" data-k="net">$11.56</span>/b
 
-vs Market A $12.00     −0.44
-vs Market B $11.00     <span class="s">+0.56 ▲</span>
-vs Market C $10.50     <span class="s">+1.06 ▲</span>`,
+vs Market A $12.00     <span class="tk" data-k="d" data-b="12">−0.44</span>
+vs Market B $11.00     <span class="tk s" data-k="d" data-b="11">+0.56 ▲</span>
+vs Market C $10.50     <span class="tk s" data-k="d" data-b="10.5">+1.06 ▲</span>`,
      cs:{type:'Personal project',platform:'Discord',runs:'24/7 on Linux (systemd)',
        problem:'Prices for the currency in an online game were spread across a marketplace and several Discord buy-markets. Traders checked each one by hand to find a gap between buy and sell prices, and missed flips while doing it.',
        built:['/spread: the cheapest trusted marketplace price, what it nets after fees, and profit against each buy market','/market: most common, highest and average price per market over a rolling 6-hour window, with movement vs. the last window','A live order-book board: one self-editing message with paging, sorting, pause/resume and adjustable refresh','Profit alerts that ping a channel or chosen users when the spread beats a threshold','Built-in calculator and fee helpers, with settings saved per server'],
@@ -590,6 +638,7 @@ next action   ~ sample(dist) + jitter
      eng:"Node.js talking to a GSM modem over a serial port with AT commands (serialport-gsm). A barcode scanner feeds student IDs in as input. Each scan toggles the student's in/out status, logs it, and sends an SMS. Students can also check in by texting their ID to the modem. Records are stored AES-256 encrypted. Looking back, William would move the key to an environment variable, use createCipheriv with a random IV, and replace the JSON file with SQLite."}
   ];
   const projById=id=>P.find(p=>p.id===id);
+  const shotLines=sh=>sh.split('\n').map((l,i)=>`<span class="ln" style="--i:${i}">${l||' '}</span>`).join('');
 
   /* ================= THEME ================= */
   const root=document.documentElement;
@@ -602,11 +651,17 @@ next action   ~ sample(dist) + jitter
     $$('[data-theme-slot]').forEach(s=>{s.querySelector('.cur').innerHTML=dot(t);s.querySelector('.lbl').textContent=NAMES[t];s.querySelectorAll('[data-pt]').forEach(b=>b.setAttribute('aria-checked',b.dataset.pt===t))});
     try{localStorage.setItem('wTheme',t)}catch(_){}
   }
+  function switchTheme(t,btn){
+    if(reduce||!document.startViewTransition||!btn){theme(t);return}
+    const r=btn.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
+    const vt=document.startViewTransition(()=>theme(t));
+    vt.ready.then(()=>root.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${R}px at ${x}px ${y}px)`]},{duration:650,easing:'cubic-bezier(.6,0,.2,1)',pseudoElement:'::view-transition-new(root)'})).catch(()=>{});
+  }
   const closeMenus=()=>$$('.tmenu').forEach(m=>{m.hidden=true;m.previousElementSibling.setAttribute('aria-expanded','false')});
   document.addEventListener('click',e=>{
     const tb=e.target.closest('.tbtn');
     if(tb){e.stopPropagation();const m=tb.nextElementSibling,open=m.hidden;closeMenus();m.hidden=!open;tb.setAttribute('aria-expanded',open);return}
-    const pt=e.target.closest('[data-pt]');if(pt){theme(pt.dataset.pt);closeMenus();return}
+    const pt=e.target.closest('.tmenu [data-pt]');if(pt){const btn=pt.closest('.theme').querySelector('.tbtn');closeMenus();switchTheme(pt.dataset.pt,btn);return}
     if(!e.target.closest('.theme'))closeMenus();
   });
   let t0='system';try{t0=localStorage.getItem('wTheme')||'system'}catch(_){}
@@ -614,9 +669,13 @@ next action   ~ sample(dist) + jitter
 
   /* ================= VIEW SWITCH ================= */
   const vPort=$('#vPort'),vChat=$('#vChat');let portY=0;
+  let switching=false;
   function show(v){
-    if(v==='chat'){if(!vChat.hidden)return;portY=scrollY;vPort.hidden=true;vChat.hidden=false;scrollTo(0,0);try{history.replaceState(null,'','#chat')}catch(_){}}
-    else{if(!vPort.hidden)return;vChat.hidden=true;vPort.hidden=false;scrollTo(0,portY);try{history.replaceState(null,'',location.pathname+location.search)}catch(_){}}
+    if(v==='chat'){if(!vChat.hidden||switching)return;portY=scrollY;
+      const go=()=>{switching=false;vPort.hidden=true;vPort.classList.remove('leaving');vChat.hidden=false;vChat.classList.remove('entering');void vChat.offsetWidth;if(!reduce)vChat.classList.add('entering');scrollTo(0,0)};
+      if(reduce)go();else{switching=true;vPort.classList.add('leaving');setTimeout(go,170)}
+      try{history.replaceState(null,'','#chat')}catch(_){}}
+    else{if(!vPort.hidden)return;vChat.hidden=true;vPort.hidden=false;vPort.classList.remove('leaving','entering');void vPort.offsetWidth;if(!reduce)vPort.classList.add('entering');scrollTo(0,portY);try{history.replaceState(null,'',location.pathname+location.search)}catch(_){}}
   }
   addEventListener('hashchange',()=>show(location.hash==='#chat'?'chat':'port'));
 
@@ -625,7 +684,7 @@ next action   ~ sample(dist) + jitter
   function renderProjects(f){
     grid.innerHTML=P.filter(p=>f==='all'||p.cat===f).map((p,i)=>{const feat=f==='all'&&i===0;return `
       <article class="proj${feat?' feat':''}" id="p-${p.id}">
-        <div class="shot"><div class="win"><i></i><i></i><i></i></div><pre>${p.shot}</pre></div>
+        <div class="shot"><div class="win"><i></i><i></i><i></i></div><pre>${shotLines(p.shot)}</pre></div>
         <div class="pb"><div class="top">${feat?'Featured · ':''}${p.cat}${p.priv?' <span class="lock">Private code</span>':''}</div>
           <h3>${p.name}</h3><p>${p.desc}</p>
           <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
@@ -636,12 +695,96 @@ next action   ~ sample(dist) + jitter
   }
   $('#filters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$$('#filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderProjects(b.dataset.f)});
   renderProjects('all');
+  $('#filters').addEventListener('click',()=>setTimeout(()=>observeReveal(grid),0));
   function gotoProject(id){
     show('port');$$('#filters button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.f==='all'));renderProjects('all');
     const el=$('#p-'+id);if(!el)return;
     requestAnimationFrame(()=>{el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1600)});
   }
   function gotoSection(id){show('port');requestAnimationFrame(()=>document.getElementById(id).scrollIntoView({behavior:reduce?'auto':'smooth'}))}
+
+  /* ================= MOTION ================= */
+  const motionOK=!reduce&&'IntersectionObserver' in window;
+  if(motionOK)root.classList.add('motion');
+
+  // S1 · reveal on scroll
+  const revIO=motionOK?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){const t=en.target;t.classList.add('in');revIO.unobserve(t);
+      t.addEventListener('transitionend',()=>t.classList.remove('rv','in'),{once:true})}}),{rootMargin:'0px 0px -8% 0px',threshold:.12}):null;
+  function observeReveal(scope){if(!revIO)return;scope.querySelectorAll('.sec-head,.proj,.ti,.certrow,.band,.contact').forEach(el=>{if(el.dataset.rv)return;el.dataset.rv='1';el.classList.add('rv');revIO.observe(el)})}
+  observeReveal(document.getElementById('vPort'));
+
+  // S2 · timeline draws as each milestone is reached
+  const drawIO=motionOK?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('drawn');drawIO.unobserve(en.target)}}),{rootMargin:'0px 0px -25% 0px'}):null;
+  if(drawIO)document.querySelectorAll('.ti').forEach(t=>drawIO.observe(t));
+
+  // S3 · numbers count up
+  function countUp(b){
+    if(reduce||b.dataset.counted)return;b.dataset.counted='1';
+    const m=b.textContent.match(/^([^\d]*)([\d.]+)(.*)$/);if(!m)return;
+    const pre=m[1],to=parseFloat(m[2]),dec=(m[2].split('.')[1]||'').length,suf=m[3],dur=1400,t0=Date.now();
+    const id=setInterval(()=>{const p=Math.min(1,(Date.now()-t0)/dur),v=to*(1-Math.pow(1-p,3));b.textContent=pre+v.toFixed(dec)+suf;if(p>=1)clearInterval(id)},16);
+  }
+  const numIO=motionOK?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.querySelectorAll('b').forEach(countUp);numIO.unobserve(en.target)}}),{threshold:.6}):null;
+  if(numIO)document.querySelectorAll('#vPort .nums').forEach(n=>numIO.observe(n));
+
+  // safety net: if the observers never fire (old browser, odd embed), reveal by position on scroll
+  function motionSweep(){
+    const lim=innerHeight*0.92;
+    document.querySelectorAll('#vPort .rv:not(.in)').forEach(el=>{if(el.getBoundingClientRect().top<lim){el.classList.add('in');revIO&&revIO.unobserve(el);el.addEventListener('transitionend',()=>el.classList.remove('rv','in'),{once:true})}});
+    document.querySelectorAll('.motion .ti:not(.drawn)').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight*0.75){el.classList.add('drawn');drawIO&&drawIO.unobserve(el)}});
+    document.querySelectorAll('#vPort .nums').forEach(n=>{if(n.getBoundingClientRect().top<innerHeight*0.85)n.querySelectorAll('b').forEach(countUp)});
+  }
+  if(motionOK){addEventListener('scroll',motionSweep,{passive:true});addEventListener('load',motionSweep);document.addEventListener('visibilitychange',motionSweep);setTimeout(motionSweep,600)}
+
+  // L2 · hero name types itself
+  (function(){
+    const h=document.getElementById('heroName');if(!h||reduce||location.hash==='#chat')return;
+    const a='William Jefferson ',b='Demillo';h.style.minHeight=h.offsetHeight+'px';
+    let i=0;const total=a.length+b.length;
+    const paint=()=>{const n=Math.min(i,a.length),k=Math.max(0,i-a.length);h.innerHTML='<span aria-hidden="true">'+a.slice(0,n)+(k?'<em>'+b.slice(0,k)+'</em>':'')+'<span class="caret"></span></span>'};
+    paint();
+    const step=()=>{i++;paint();if(i<total)setTimeout(step,i===a.length?160:55+Math.random()*35);else setTimeout(()=>{h.innerHTML='William Jefferson <em>Demillo</em>';h.style.minHeight=''},1600)};
+    setTimeout(step,350);
+  })();
+
+  // A2 · live bot preview ticks
+  let mp=13.20;
+  setInterval(()=>{
+    if(reduce||document.hidden)return;
+    mp=Math.min(13.8,Math.max(12.6,mp+(Math.random()-.47)*.09));const net=mp*0.875;
+    document.querySelectorAll('.tk').forEach(t=>{
+      const k=t.dataset.k;let txt,cls='tk';
+      if(k==='mp')txt='$'+mp.toFixed(2);
+      else if(k==='net')txt='$'+net.toFixed(2);
+      else{const v=net-parseFloat(t.dataset.b);txt=(v>=0?'+':'−')+Math.abs(v).toFixed(2)+(v>0?' ▲':'');if(v>0)cls+=' s'}
+      if(t.textContent!==txt){t.textContent=txt;t.className=cls+' tick';setTimeout(()=>t.classList.remove('tick'),600)}
+    });
+  },3000);
+
+  // H4 · hackathon polaroid
+  const PH={nat:{src:'assets/hackathon/nationals.jpg',cap:'National Finals · 51st PBCE',alt:'Team Cabuyao on stage at the Byte Forward Hackathon national finals'},
+            reg:{src:'assets/hackathon/regional.jpg',cap:'South Luzon Leg · Sept 30, 2025',alt:'Team Cabuyao with the third place cheque at the South Luzon leg'}};
+  const pol=document.createElement('figure');pol.className='polaroid';pol.setAttribute('aria-hidden','true');
+  pol.innerHTML='<img alt=""><figcaption></figcaption>';document.body.appendChild(pol);
+  const pImg=pol.querySelector('img'),pCap=pol.querySelector('figcaption');
+  const canHover=matchMedia('(hover: hover)').matches;let rot=-4,polLi=null;
+  function fillPol(k){if(pImg.dataset.k!==k){pImg.src=PH[k].src;pImg.alt=PH[k].alt;pImg.dataset.k=k}pCap.textContent=PH[k].cap;rot=k==='nat'?-4:3}
+  function movePol(x,y){const w=280,h=245;let left=x+24,top=y-h/2;if(left+w>innerWidth-12)left=x-w-24;if(left<12)left=12;top=Math.max(12,Math.min(innerHeight-h-12,top));pol.style.transform=`translate(${left}px,${top}px) rotate(${rot}deg)`}
+  function hidePol(){pol.classList.remove('show');if(polLi){polLi.classList.remove('on');polLi=null}}
+  document.addEventListener('mouseover',e=>{if(!canHover)return;const li=e.target.closest('li[data-ph]');if(li&&!li.contains(e.relatedTarget)){fillPol(li.dataset.ph);pol.classList.add('show');movePol(e.clientX,e.clientY)}});
+  document.addEventListener('mouseout',e=>{const li=e.target.closest('li[data-ph]');if(li&&!li.contains(e.relatedTarget))hidePol()});
+  document.addEventListener('mousemove',e=>{if(canHover&&pol.classList.contains('show'))movePol(e.clientX,e.clientY)});
+  document.addEventListener('focusin',e=>{const li=e.target.closest&&e.target.closest('li[data-ph]');if(li&&canHover){const r=li.getBoundingClientRect();fillPol(li.dataset.ph);pol.classList.add('show');movePol(r.right-60,r.top+r.height/2)}});
+  document.addEventListener('focusout',e=>{if(e.target.closest&&e.target.closest('li[data-ph]'))hidePol()});
+  document.addEventListener('click',e=>{
+    if(canHover)return;const li=e.target.closest('li[data-ph]');
+    if(!li){if(polLi)hidePol();return}
+    if(polLi===li){hidePol();return}
+    hidePol();polLi=li;li.classList.add('on');fillPol(li.dataset.ph);rot=0;pol.classList.add('show');
+    const r=li.getBoundingClientRect();pol.style.transform=`translate(${Math.max(12,(innerWidth-280)/2)}px,${Math.min(innerHeight-257,r.bottom+8)}px)`;
+  });
+  addEventListener('scroll',()=>{if(!canHover&&polLi)hidePol()},{passive:true});
+  addEventListener('load',()=>setTimeout(()=>Object.values(PH).forEach(p=>{const i=new Image();i.src=p.src}),1500));
 
   /* ================= CASE STUDY (private projects) ================= */
   const caseRoot=$('#caseRoot');
@@ -651,7 +794,7 @@ next action   ~ sample(dist) + jitter
       <aside class="case" role="dialog" aria-modal="true" aria-label="${p.name} case study">
         <div class="case-h"><span class="lock">Private code</span><span>Case study</span><button class="x" data-close-case aria-label="Close">✕</button></div>
         <div class="case-b">
-          <div class="shot" style="border:1px solid var(--line);border-radius:12px"><div class="win"><i></i><i></i><i></i></div><pre>${p.shot}</pre></div>
+          <div class="shot" style="border:1px solid var(--line);border-radius:12px"><div class="win"><i></i><i></i><i></i></div><pre>${shotLines(p.shot)}</pre></div>
           <h2>${p.name}</h2>
           <dl class="meta"><div><dt>Type</dt><dd>${c.type}</dd></div><div><dt>Platform</dt><dd>${c.platform}</dd></div><div><dt>Runs</dt><dd>${c.runs}</dd></div></dl>
           <div><h5>The problem</h5><p>${c.problem}</p></div>
@@ -691,7 +834,7 @@ next action   ~ sample(dist) + jitter
     const a=document.createElement('div');a.className='a';a.innerHTML='<span class="mark">W</span><div class="body"><p class="cursor"></p></div>';log.appendChild(a);down();
     const p=a.querySelector('p'),body=a.querySelector('.body');
     const fin=()=>{p.classList.remove('cursor');
-      if(extra)body.insertAdjacentHTML('beforeend',extra);
+      if(extra){body.insertAdjacentHTML('beforeend',extra);body.querySelectorAll('.nums b').forEach(countUp)}
       if(sources&&sources.length)body.insertAdjacentHTML('beforeend',`<div class="sources">From the portfolio: ${sources.map(s=>`<button type="button" data-src="${s[0]}">${s[1]}</button>`).join('')}</div>`);
       busy=false;down();after&&after(body)};
     setTimeout(()=>{if(reduce){p.textContent=text;fin();return}
@@ -792,7 +935,7 @@ ${name}`;
     [/stack|tech|language|framework|tools?\b|skills?/,"Mostly Node.js and JavaScript for bots and backend services, including Discord bots, REST APIs and WebSockets. He uses Java for Minecraft client mods (Fabric, Mixin, Gradle), and has done hardware work over serial with a GSM modem.",[['about','Stack'],['projects','Projects']]],
     [/school|study|student|education|course|degree/,"He studies at Pamantasan ng Cabuyao, where his team placed 3rd at the Byte Forward Hackathon national finals.",[['about','About']]],
     [/award|achiev|won|compet|cert/,"In college, William's team (Team Cabuyao, Pamantasan ng Cabuyao) won 3rd place at the Byte Forward Hackathon national finals, awarded at the 51st Philippine Business Conference and Expo, after also placing 3rd in the South Luzon leg.",[['achievements','Experience']]],
-    [/business|venture|startup|goprint|sales|revenue|profit|entrepreneur|trading|partner/,"William has run two ventures. Most recently he co-founded a game-currency trading business with a partner: over $294K in gross sales and over $16K in profit, split 50/50, a 131% return on his own capital. Before the hackathons he worked on GoPrint, an automated printing vending machine: you connect to its Wi-Fi, send a file, pay the amount shown on screen, and it prints.",[['achievements','Experience']]],
+    [/business|venture|startup|goprint|sales|revenue|profit|entrepreneur|trading|partner/,"William has run two ventures. Most recently he co-founded a game-currency trading business with a partner: over $294K in gross sales and over $16K in profit, split 50/50. Before the hackathons he worked on GoPrint, an automated printing vending machine: you connect to its Wi-Fi, send a file, pay the amount shown on screen, and it prints.",[['achievements','Experience']]],
     [/hire|available|open to|intern|job|work with/,"Yes, he's open to backend internships and junior roles. I can draft a message to him if you'd like.",[['contact','Contact']]],
     [/contact|email|reach/,"The fastest way is email. I can draft one for you.",[['contact','Contact']]]
   ];
@@ -816,13 +959,13 @@ ${name}`;
   const AWARDS_HTML=`<div class="tcard">
       <div class="thead"><span class="kind">Competition · Team Cabuyao, Pamantasan ng Cabuyao</span><h3>Byte Forward Hackathon</h3></div>
       <ul class="places">
-        <li><span class="medal"></span><div><b>3rd Place · National Finals</b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
-        <li><span class="medal"></span><div><b>3rd Place · South Luzon Leg</b><small>Regional qualifier</small></div><span class="lvl">Regional</span></li>
+        <li data-ph="nat" tabindex="0"><span class="medal"></span><div><b>3rd Place · National Finals <span class="cam">photo</span></b><small>Awarded at the 51st Philippine Business Conference and Expo</small></div><span class="lvl">National</span></li>
+        <li data-ph="reg" tabindex="0"><span class="medal"></span><div><b>3rd Place · South Luzon Leg <span class="cam">photo</span></b><small>Regional qualifier · Sept 30, 2025</small></div><span class="lvl">Regional</span></li>
       </ul></div>`;
   const TRADE_HTML=`<div class="tcard">
       <div class="thead"><span class="kind">Venture · Co-founder</span><h3>Game-currency trading business</h3></div>
-      <div class="nums"><div><b>$294K+</b><small>Gross sales</small></div><div><b>$16K+</b><small>Total profit</small></div><div><b>5.6%</b><small>Net margin</small></div><div><b>131%</b><small>Return on his capital</small></div></div>
-      <p class="foot">Profit split 50/50 with his partner. Return is his share against the capital he put in himself.</p></div>`;
+      <div class="nums"><div><b>$294K+</b><small>Gross sales</small></div><div><b>$16K+</b><small>Total profit</small></div><div><b>5.6%</b><small>Net margin</small></div></div>
+      <p class="foot">Profit split 50/50 with his partner.</p></div>`;
   const GOPRINT_HTML=`<div class="tcard">
       <div class="thead"><span class="kind">Venture</span><h3>GoPrint</h3></div>
       <div class="flow"><span>Connect to Wi-Fi</span><i>→</i><span>Send file</span><i>→</i><span>Screen shows price</span><i>→</i><span>Pay</span><i>→</i><span>Print</span></div></div>`;
@@ -830,7 +973,7 @@ ${name}`;
   const PRE={
     awards:()=>bot("In college, William's team, Team Cabuyao from Pamantasan ng Cabuyao, placed 3rd in the Byte Forward Hackathon twice: first in the South Luzon regional leg, then at the national finals, awarded at the 51st Philippine Business Conference and Expo.",AWARDS_HTML+MORE('awards'),[['achievements','Experience']]),
     ventures:()=>bot("William has run two ventures. The most recent is a game-currency trading business he co-founded with a partner. Before the hackathons, he worked on GoPrint, an automated printing vending machine.",TRADE_HTML+GOPRINT_HTML+`<div class="opts"><button type="button" class="opt" data-pre="trade">More on the trading business</button><button type="button" class="opt" data-pre="goprint">How does GoPrint work?</button></div>`,[['achievements','Experience']]),
-    trade:()=>bot("William co-founded a game-currency trading business with a partner, buying and selling in-game currency and splitting profit 50/50. It did over $294K in gross sales and over $16K in profit, a 5.6% net margin. His half of the profit was a 131% return on the capital he put in himself.",TRADE_HTML+MORE('trade'),[['achievements','Experience']]),
+    trade:()=>bot("William co-founded a game-currency trading business with a partner, buying and selling in-game currency and splitting profit 50/50. It did over $294K in gross sales and over $16K in profit, a 5.6% net margin.",TRADE_HTML+MORE('trade'),[['achievements','Experience']]),
     goprint:()=>bot("GoPrint is an automated printing vending machine. You connect to its Wi-Fi and send the file you want printed. The screen shows how much to pay, and once you pay, it prints. No attendant, no USB stick, no cables.",GOPRINT_HTML+MORE('goprint'),[['achievements','Experience']])
   };
   const PRE_Q={awards:'What has William achieved?',ventures:'What ventures has he run?',trade:'Tell me about the trading business',goprint:'How does GoPrint work?'};

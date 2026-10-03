@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="William Jefferson Demillo: developer and founder. Discord bots, game automation, hardware, and a national hackathon placing.">
+<meta name="description" content="William Jefferson Demillo: developer and founder. Discord bots, game automation, ventures, and a national hackathon placing.">
 <meta property="og:title" content="William Jefferson Demillo · Portfolio">
 <meta property="og:description" content="Developer and founder. Projects, ventures, and an AI assistant that answers questions about my work.">
 <meta property="og:image" content="assets/avatar.jpg">
@@ -31,6 +31,21 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0}
+/* never let anything make the page wider than the phone */
+body{overflow-x:clip}
+.askai .short{display:none}
+.brand{min-width:0}
+.brand .bname{overflow:hidden;text-overflow:ellipsis}
+@media (max-width:600px){
+  .askai .full{display:none}
+  .askai .short{display:inline}
+  .askai{padding:7px 12px}
+  .navin{gap:8px}
+  /* iPhone zooms into any text box under 16px and doesn't zoom back out */
+  input,select,textarea{font-size:16px!important}
+}
+@media (max-width:380px){.brand .bname{display:none}}
+@media (max-width:600px){.chead .t span{display:none}.chead{padding-inline:16px}}
 img{max-width:100%}
 html{scroll-behavior:smooth;scroll-padding-top:70px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -316,6 +331,8 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
 .places .lvl{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
 .certrow{margin-top:18px;display:grid;grid-template-columns:110px 1fr;gap:20px;align-items:center}
 .certrow .kind{text-align:right;padding-right:22px}
+.certrow .cert.soon{grid-template-columns:44px 1fr}
+.certrow .cert.soon .seal{color:var(--muted)}
 .certrow .cert{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
 @media (max-width:640px){.certrow{grid-template-columns:1fr;gap:6px}.certrow .kind{text-align:left;padding:0}}
 
@@ -358,10 +375,10 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
 <div id="vPort">
   <nav class="top gut">
     <div class="wide navin">
-      <a class="brand" href="#" data-top><span class="mark">W</span>William Demillo</a>
+      <a class="brand" href="#" data-top><span class="mark">W</span><span class="bname">William Demillo</span></a>
       <div class="navlinks"><a href="#about">About</a><a href="#projects">Projects</a><a href="#achievements">Experience</a><a href="#contact">Contact</a></div>
       <div class="theme" data-theme-slot></div>
-      <button class="askai" data-go-chat><span class="spark">✦</span>Ask my assistant</button>
+      <button class="askai" data-go-chat><span class="spark">✦</span><span class="full">Ask my assistant</span><span class="short">Ask AI</span></button>
     </div>
   </nav>
 
@@ -372,7 +389,7 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
         <div class="txt">
           <span class="role">developer &amp; founder · Pamantasan ng Cabuyao</span>
           <h1>William Jefferson <em>Demillo</em></h1>
-          <p class="bio">I build software that runs on its own: Discord bots that watch markets in real time, game automation that acts like a real player, and a school gate system that texts parents. I also co-founded a trading business that did $294K in sales, and my team placed 3rd nationally at the Byte Forward Hackathon.</p>
+          <p class="bio">I build software that runs on its own: Discord bots that watch markets in real time, game automation that acts like a real player. I also co-founded a trading business that did $294K in sales, and my team placed 3rd nationally at the Byte Forward Hackathon.</p>
           <div class="cta">
             <a class="btn ink" href="#projects">View projects</a>
             <a class="btn" href="#" onclick="return false">Résumé ↓</a>
@@ -390,9 +407,9 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
 
     <section class="wide sec" id="projects">
       <div class="sec-head">
-        <div class="g"><span class="eyebrow">Selected work</span><h2>Projects</h2><p>Bots, game mods and hardware. Private projects have case studies instead of code, and the assistant can explain any of them.</p></div>
+        <div class="g"><span class="eyebrow">Selected work</span><h2>Projects</h2><p>Bots and game mods. Private projects have case studies instead of code, and the assistant can explain any of them.</p></div>
         <div class="filters" id="filters" role="group" aria-label="Filter projects">
-          <button data-f="all" aria-pressed="true">All</button><button data-f="Bots" aria-pressed="false">Bots</button><button data-f="Game mods" aria-pressed="false">Game mods</button><button data-f="Hardware" aria-pressed="false">Hardware</button>
+          <button data-f="all" aria-pressed="true">All</button><button data-f="Bots" aria-pressed="false">Bots</button><button data-f="Game mods" aria-pressed="false">Game mods</button>
         </div>
       </div>
       <div class="pgrid" id="pgrid"></div>
@@ -434,7 +451,7 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
       </ol>
       <div class="certrow">
         <span class="kind">Certifications</span>
-        <div class="cert"><span class="seal">C</span><div><b>Certification name <span class="sample">Sample</span></b><small>Issuing organization · year</small></div><a href="#" onclick="return false">Verify ↗</a></div>
+        <div class="cert soon"><span class="seal">…</span><div><b>In progress</b><small>I'm currently working toward industry certifications. They'll be listed here as they're completed.</small></div></div>
       </div>
     </section>
 
@@ -524,7 +541,7 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
 
   /* ================= DATA (one source for both views) ================= */
   const EMAIL='demillowillz@gmail.com';
-  const SKILLS={'node':'Node.js','node.js':'Node.js','nodejs':'Node.js','javascript':'JavaScript','js':'JavaScript','java':'Java','websocket':'WebSockets','websockets':'WebSockets','real-time':'Real-time systems','realtime':'Real-time systems','rest':'REST APIs','api':'REST APIs','apis':'REST APIs','git':'Git','github':'Git','gradle':'Gradle','ci/cd':'CI/CD','github actions':'CI/CD','linux':'Linux','systemd':'Linux','discord':'Discord bots','bot':'Discord bots','encryption':'Encryption','aes':'Encryption','serial':'Hardware / serial','iot':'Hardware / serial','hardware':'Hardware / serial','scraping':'Web scraping','scraper':'Web scraping','json':'JSON','rate limit':'Rate limiting','algorithm':'Algorithms'};
+  const SKILLS={'node':'Node.js','node.js':'Node.js','nodejs':'Node.js','javascript':'JavaScript','js':'JavaScript','java':'Java','websocket':'WebSockets','websockets':'WebSockets','real-time':'Real-time systems','realtime':'Real-time systems','rest':'REST APIs','api':'REST APIs','apis':'REST APIs','git':'Git','github':'Git','gradle':'Gradle','ci/cd':'CI/CD','github actions':'CI/CD','linux':'Linux','systemd':'Linux','discord':'Discord bots','bot':'Discord bots','scraping':'Web scraping','scraper':'Web scraping','json':'JSON','rate limit':'Rate limiting','algorithm':'Algorithms'};
   const GAPS={'typescript':'TypeScript','python':'Python','sql':'SQL databases','postgres':'SQL databases','postgresql':'SQL databases','mysql':'SQL databases','mongodb':'MongoDB','redis':'Redis','docker':'Docker','kubernetes':'Kubernetes','k8s':'Kubernetes','aws':'AWS','azure':'Azure','gcp':'Google Cloud','spring':'Spring','c#':'C#','.net':'.NET','graphql':'GraphQL','kafka':'Kafka','terraform':'Terraform','php':'PHP','laravel':'Laravel','react':'React','go':'Go','golang':'Go'};
   const P=[
     {id:'spread',cat:'Bots',priv:true,name:'Market Spread Bot',desc:'A Discord bot that tracks in-game coin prices across several markets in real time, shows the live spread, and alerts traders to profitable flips.',tags:['Node.js','discord.js','WebSockets','REST APIs','systemd'],kw:'discord bot realtime real-time websocket api scraping rate limit alerts market price node javascript backend performance',
@@ -559,18 +576,7 @@ next action   ~ sample(dist) + jitter
        stats:[['Modular','toggle each feature'],['Randomized','human-like timing'],['Discord','live status alerts']],
        eng:['Injects into the game client with Mixin to read state and send input','Timing sampled from a distribution with jitter, not a fixed delay','Remote status alerts to Discord, so it can run unattended','CI builds the JAR on every push and pull request']},
      rec:"This is a Minecraft add-on William built that automates repetitive in-game tasks. It's split into modules you can switch on and off, it times its actions like a real person instead of a robot, and it sends status updates to Discord so you know it's still running without watching the screen.",
-     eng:"Java on Fabric, built as a Meteor Client addon. It hooks the client with Mixin, and each behavior is a separate module with its own settings, plus commands and HUD elements. Action delays are sampled from a statistical distribution with jitter rather than fixed intervals. Status updates go to Discord. Gradle (Kotlin DSL) build, with GitHub Actions CI on pushes and PRs. The code is private, so I can't share the exact timing parameters."},
-    {id:'attendance',cat:'Hardware',name:'Attendance Tracker',desc:'My Grade 12 research project: students scan their ID at the school gate and their parent gets a text within seconds, sent through a GSM modem with no internet needed.',tags:['Node.js','GSM modem','Serial / AT commands','AES-256'],kw:'hardware iot serial sms gsm modem attendance school node javascript encryption barcode research thesis',
-     repo:'https://github.com/knownAsWillz/Research-2022',
-     shot:`> 2023-0142
-<span class="s">✓</span> Juan D. · ENTERED · 7:02 AM
-
-<span class="k">AT+CMGS</span>="+63•••••••••"
-"Juan D. has entered the school
- premises at 7:02 AM"
-<span class="s">OK</span>`,
-     rec:"Attendance Tracker was William's Grade 12 research project. Students scan their ID at the school gate, and their parent instantly gets a text saying they arrived or left. It sends the text through a GSM modem, so it works even without internet, which mattered because not every parent has mobile data.",
-     eng:"Node.js talking to a GSM modem over a serial port with AT commands (serialport-gsm). A barcode scanner feeds student IDs in as input. Each scan toggles the student's in/out status, logs it, and sends an SMS. Students can also check in by texting their ID to the modem. Records are stored AES-256 encrypted. Looking back, William would move the key to an environment variable, use createCipheriv with a random IV, and replace the JSON file with SQLite."}
+     eng:"Java on Fabric, built as a Meteor Client addon. It hooks the client with Mixin, and each behavior is a separate module with its own settings, plus commands and HUD elements. Action delays are sampled from a statistical distribution with jitter rather than fixed intervals. Status updates go to Discord. Gradle (Kotlin DSL) build, with GitHub Actions CI on pushes and PRs. The code is private, so I can't share the exact timing parameters."}
   ];
   const projById=id=>P.find(p=>p.id===id);
 
@@ -718,7 +724,7 @@ Requirements:
   }
 
   /* ---- tool: find ---- */
-  const FINDS=[['Discord bots','discord'],['Real-time','realtime'],['Java','java'],['Hardware','hardware'],['APIs','api']];
+  const FINDS=[['Discord bots','discord'],['Real-time','realtime'],['Java','java'],['Automation','automation'],['APIs','api']];
   function startFind(){
     user('Find a project');
     bot("What are you looking for? Pick a topic or type one, like “something with Redis”.",`<div class="opts">${FINDS.map(f=>`<button type="button" class="opt" data-find="${f[1]}">${f[0]}</button>`).join('')}</div>`);
@@ -747,7 +753,7 @@ Requirements:
       `<form class="box mform" data-mform>
         <div class="two"><label>Your name<input id="mf-name" required placeholder="Ana Reyes"></label><label>Company / role<input id="mf-org" placeholder="Acme · Hiring manager"></label></div>
         <label>Reason<select id="mf-why">${["Internship opportunity","Full-time role","Freelance / project","Project walkthrough","Just saying hi"].map(o=>`<option${pre&&pre.why===o?" selected":""}>${o}</option>`).join("")}</select></label>
-        <label>Anything specific? (optional)<textarea id="mf-note" rows="2" placeholder="e.g. We liked the Attendance Tracker project">${pre&&pre.note?esc(pre.note):""}</textarea></label>
+        <label>Anything specific? (optional)<textarea id="mf-note" rows="2" placeholder="e.g. We liked the Market Spread Bot project">${pre&&pre.note?esc(pre.note):""}</textarea></label>
         <div><button class="btn pri" type="submit">Draft email</button></div>
       </form>`);
   }
@@ -772,7 +778,7 @@ ${name}`;
 
   /* ---- free text ---- */
   const QA=[
-    [/stack|tech|language|framework|tools?\b|skills?/,"Mostly Node.js and JavaScript for bots and backend services, including Discord bots, REST APIs and WebSockets. He uses Java for Minecraft client mods (Fabric, Mixin, Gradle), and has done hardware work over serial with a GSM modem.",[['about','Stack'],['projects','Projects']]],
+    [/stack|tech|language|framework|tools?\b|skills?/,"Mostly Node.js and JavaScript for bots and backend services, including Discord bots, REST APIs and WebSockets. He uses Java for Minecraft client mods (Fabric, Mixin, Gradle).",[['about','Stack'],['projects','Projects']]],
     [/school|study|student|education|course|degree/,"He studies at Pamantasan ng Cabuyao, where his team placed 3rd at the Byte Forward Hackathon national finals.",[['about','About']]],
     [/award|achiev|won|compet|cert/,"In college, William's team (Team Cabuyao, Pamantasan ng Cabuyao) won 3rd place at the Byte Forward Hackathon national finals, awarded at the 51st Philippine Business Conference and Expo, after also placing 3rd in the South Luzon leg.",[['achievements','Experience']]],
     [/business|venture|startup|goprint|sales|revenue|profit|entrepreneur|trading|partner/,"William has run two ventures. Most recently he co-founded a game-currency trading business with a partner: over $294K in gross sales and over $16K in profit, split 50/50, a 131% return on his own capital. Before the hackathons he worked on GoPrint, an automated printing vending machine: you connect to its Wi-Fi, send a file, pay the amount shown on screen, and it prints.",[['achievements','Experience']]],

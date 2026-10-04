@@ -336,6 +336,13 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
 .certrow .cert{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
 @media (max-width:640px){.certrow{grid-template-columns:1fr;gap:6px}.certrow .kind{text-align:left;padding:0}}
 
+/* Max typing indicator */
+.typing{display:inline-flex;gap:4px;padding-top:8px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:tdot 1.2s infinite ease-in-out}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,80%,100%{opacity:.3;transform:none}40%{opacity:1;transform:translateY(-3px)}}
+@media (prefers-reduced-motion:reduce){.typing i{animation:none}}
+
 /* =================== MOTION =================== */
 /* S1 · sections ease in (only when JS adds .rv) */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)!important}
@@ -554,14 +561,14 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
     <div class="cmain">
       <header class="chead">
         <button class="backbtn m" data-go-port>← Portfolio</button>
-        <div class="t"><b>William's assistant</b> <span>· knows his projects, skills and experience</span></div>
+        <div class="t"><b>Max</b> <span>· William's personal assistant</span></div>
         <div class="r"><div class="theme" data-theme-slot></div></div>
       </header>
 
       <main class="thread" id="thread">
         <section class="welcome" id="welcome">
-          <h1><span class="mark">W</span>What can I help with?</h1>
-          <p>I answer only from William's portfolio, and every answer shows which part it came from. Pick a task or just ask.</p>
+          <h1><span class="mark">M</span>Hi, I'm Max!</h1>
+          <p>I'm William's personal assistant. Still kinda new here, but I know his projects, skills and experience. Pick a task below or just ask me anything about him.</p>
           <div class="tools">
             <button class="tool" data-tool="fit"><span class="ico">⚖</span><b>Check job fit</b><span>Paste a job post. Get matches, gaps and relevant projects.</span></button>
             <button class="tool" data-tool="find"><span class="ico">⌕</span><b>Find a project</b><span>“Something with databases” → the right projects.</span></button>
@@ -581,7 +588,7 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
             <textarea id="text" rows="1" placeholder="Ask about William's skills, projects or experience…" aria-label="Message"></textarea>
             <div class="bar">
               <span class="quota" title="Questions this session"><span class="pips" id="pips"></span><span id="qtxt">10 left</span></span>
-              <span class="model">Llama 3.1 8B · Workers AI</span>
+              <span class="model">Max · Gemma 4 on Workers AI</span>
               <button class="send" id="send" type="submit" aria-label="Send">↑</button>
             </div>
           </div>
@@ -864,7 +871,7 @@ next action   ~ sample(dist) + jitter
   // bot(text, extraHTML, sources[]) -> streams text then appends extra
   function bot(text,extra,sources,after){
     welcome.hidden=true;busy=true;
-    const a=document.createElement('div');a.className='a';a.innerHTML='<span class="mark">W</span><div class="body"><p class="cursor"></p></div>';log.appendChild(a);down();
+    const a=document.createElement('div');a.className='a';a.innerHTML='<span class="mark">M</span><div class="body"><p class="cursor"></p></div>';log.appendChild(a);down();
     const p=a.querySelector('p'),body=a.querySelector('.body');
     const fin=()=>{p.classList.remove('cursor');
       if(extra){body.insertAdjacentHTML('beforeend',extra);body.querySelectorAll('.nums b').forEach(countUp)}
@@ -972,6 +979,30 @@ ${name}`;
     [/hire|available|open to|intern|job|work with/,"Yes. He's open to internships, part-time and full-time roles, freelance projects, ventures and business offers, remote or on-site. I can draft a message to him if you'd like.",[['contact','Contact']]],
     [/contact|email|reach/,"The fastest way is email. I can draft one for you.",[['contact','Contact']]]
   ];
+  /* ---- Max: live answers from Gemma 4 via /api/chat ---- */
+  const HIST=[];
+  async function askMax(v){
+    busy=true;
+    const t=document.createElement('div');t.className='a';
+    t.innerHTML='<span class="mark">M</span><div class="body"><p class="typing" aria-label="Max is typing"><i></i><i></i><i></i></p></div>';
+    log.appendChild(t);down();
+    let data=null,status=0;
+    try{
+      const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),20000);
+      const r=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({question:v,history:HIST.slice(-6)}),signal:ctl.signal,credentials:'same-origin'});
+      clearTimeout(to);status=r.status;
+      if((r.headers.get('content-type')||'').includes('application/json'))data=await r.json();
+    }catch(_){}
+    t.remove();busy=false;
+    if(data&&typeof data.left==='number'){used=LIMIT-data.left;try{sessionStorage.setItem('wUsed',used)}catch(_){};pips()}
+    if(status===200&&data&&data.reply){
+      HIST.push({role:'user',content:v},{role:'assistant',content:data.reply});
+      bot(data.reply);return;
+    }
+    if(status===429){bot("Okay so, small problem: you've hit the 10-question limit for this session. Still new here, they keep me on a budget. You can email William directly at demillowillz@gmail.com though!",null,[['contact','Contact']]);return}
+    free(v);   // offline, busy or not deployed yet: use the pre-written answers
+  }
+
   function free(v){
     const l=v.toLowerCase();
     if(/fit|job post|job description|requirements/.test(l)&&v.length<120){bot("Paste the job description and I'll check the fit.",null,null,()=>setMode('fit'));return}
@@ -1018,7 +1049,7 @@ ${name}`;
   function newChat(){log.innerHTML='';welcome.hidden=false;setMode(null);scrollTo(0,0)}
   $('#form').addEventListener('submit',e=>{e.preventDefault();const v=ta.value.trim();if(!v||busy||used>=LIMIT)return;
     ta.value='';ta.style.height='auto';user(v);spend();
-    if(mode==='fit'){setMode(null);runFit(v)}else free(v);
+    if(mode==='fit'){setMode(null);runFit(v)}else askMax(v);
     if(used>=LIMIT)setTimeout(()=>sys('That was the last question for this session. You can still email William.'),1200)});
   ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&mode!=='fit'){e.preventDefault();$('#form').requestSubmit()}});
   ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,180)+'px'});

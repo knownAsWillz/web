@@ -1,0 +1,16 @@
+# Cloudflare Workers config (deployed by Workers Builds on every push to main).
+# The name must match the Worker in the Cloudflare dashboard.
+name = "portfolio"
+main = "worker/index.js"
+compatibility_date = "2026-10-01"
+
+# Static site: everything in the repo root, minus what .assetsignore excludes.
+# /api/* always runs the Worker code first.
+[assets]
+directory = "."
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
+
+# Workers AI: gives worker/index.js access to Gemma 4 as env.AI
+[ai]
+binding = "AI"

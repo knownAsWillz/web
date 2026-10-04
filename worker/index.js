@@ -68,7 +68,12 @@ async function handleChat(request, env) {
 
   let reply;
   try {
-    const out = await env.AI.run(MODEL, { messages, max_tokens: 350, temperature: 0.6 });
+    const out = await env.AI.run(MODEL, {
+      messages,
+      max_completion_tokens: 900,                       // room for a short answer even if the model thinks first
+      temperature: 0.6,
+      chat_template_kwargs: { enable_thinking: false },  // answer directly; no hidden reasoning
+    });
     reply = cleanReply(out?.choices?.[0]?.message?.content ?? out?.response);
     if (!reply) return json({ error: 'busy', raw: JSON.stringify(out).slice(0, 1200) }, 503); // TEMP: diagnosing
   } catch (err) {

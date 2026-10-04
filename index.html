@@ -315,13 +315,13 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
 .kind{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .thead h3{font-size:1.45rem;line-height:1.15}
 .thead p{color:var(--muted);font-size:.93rem;max-width:64ch}
-.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;background:var(--bg)}
 .nums div{padding:12px 14px;display:grid;gap:2px}
 .nums div+div{border-left:1px solid var(--line)}
 .nums b{font-family:var(--serif);font-weight:400;font-size:1.45rem;line-height:1.1;font-variant-numeric:tabular-nums}
 .nums div:first-child b{color:var(--accent)}
 .nums small{color:var(--muted);font-size:.76rem}
-@media (max-width:720px){.nums div{padding:10px}.nums b{font-size:1.15rem}}
+@media (max-width:720px){.nums{grid-template-columns:1fr 1fr}.nums div:nth-child(3){border-left:0}.nums div:nth-child(n+3){border-top:1px solid var(--line)}}
 .tcard .foot{font-size:.84rem;color:var(--muted)}
 .places{list-style:none;margin:0;padding:0;display:grid}
 .places li{display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
@@ -486,10 +486,10 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
             <div class="nums">
               <div><b>$294K+</b><small>Gross sales</small></div>
               <div><b>$16K+</b><small>Total profit</small></div>
-              <div><b>5.6%</b><small>Net margin</small></div>
+              <div><b>5.6%</b><small>Net margin</small></div><div><b>₱10K</b><small>Seed capital</small></div>
               
             </div>
-            <p class="foot">Profit split 50/50 with my partner.</p>
+            <p class="foot">My ₱10,000 of seed capital is what made the $16K+ profit possible. I handled sourcing, pricing, sales and payouts, and split the profit 50/50 with my partner.</p>
           </div>
         </li>
         <li class="ti">
@@ -519,7 +519,7 @@ footer.foot{padding-block:22px 36px;display:flex;justify-content:space-between;g
     <section class="col contact" id="contact">
       <span class="eyebrow">Contact</span>
       <h2>Let's build <em>something.</em></h2>
-      <p>Open to internships, junior backend roles and interesting side projects. Email me, or have my assistant draft the message for you.</p>
+      <p>Open to internships, part-time and full-time roles, freelance projects, ventures and business offers. Email me, or have my assistant draft the message for you.</p>
       <div class="copy"><span class="email">demillowillz@gmail.com</span><button type="button" data-copy-email>Copy</button></div>
       <div class="socials">
         <button class="btn ai" data-go-chat="write">✦ Draft a message with AI</button>
@@ -968,8 +968,8 @@ ${name}`;
     [/stack|tech|language|framework|tools?\b|skills?/,"Mostly Node.js and JavaScript for bots and backend services, including Discord bots, REST APIs and WebSockets. He uses Java for Minecraft client mods (Fabric, Mixin, Gradle), and has done hardware work over serial with a GSM modem.",[['about','Stack'],['projects','Projects']]],
     [/school|study|student|education|course|degree/,"He studies at Pamantasan ng Cabuyao, where his team placed 3rd at the Byte Forward Hackathon national finals.",[['about','About']]],
     [/award|achiev|won|compet|cert/,"In college, William's team (Team Cabuyao, Pamantasan ng Cabuyao) won 3rd place at the Byte Forward Hackathon national finals, awarded at the 51st Philippine Business Conference and Expo, after also placing 3rd in the South Luzon leg.",[['achievements','Experience']]],
-    [/business|venture|startup|goprint|sales|revenue|profit|entrepreneur|trading|partner/,"William has run two ventures. Most recently he co-founded a game-currency trading business with a partner: over $294K in gross sales and over $16K in profit, split 50/50. Before the hackathons he worked on GoPrint, an automated printing vending machine: you connect to its Wi-Fi, send a file, pay the amount shown on screen, and it prints.",[['achievements','Experience']]],
-    [/hire|available|open to|intern|job|work with/,"Yes, he's open to backend internships and junior roles. I can draft a message to him if you'd like.",[['contact','Contact']]],
+    [/business|venture|startup|goprint|sales|revenue|profit|entrepreneur|trading|partner/,"William has run two ventures. Most recently he co-founded a game-currency trading business with a partner: over $294K in gross sales and over $16K in profit, split 50/50, starting from ₱10,000 of his own seed capital. Before the hackathons he worked on GoPrint, an automated printing vending machine: you connect to its Wi-Fi, send a file, pay the amount shown on screen, and it prints.",[['achievements','Experience']]],
+    [/hire|available|open to|intern|job|work with/,"Yes. He's open to internships, part-time and full-time roles, freelance projects, ventures and business offers, remote or on-site. I can draft a message to him if you'd like.",[['contact','Contact']]],
     [/contact|email|reach/,"The fastest way is email. I can draft one for you.",[['contact','Contact']]]
   ];
   function free(v){
@@ -997,8 +997,8 @@ ${name}`;
       </ul></div>`;
   const TRADE_HTML=`<div class="tcard">
       <div class="thead"><span class="kind">Venture · Co-founder</span><h3>Game-currency trading business</h3></div>
-      <div class="nums"><div><b>$294K+</b><small>Gross sales</small></div><div><b>$16K+</b><small>Total profit</small></div><div><b>5.6%</b><small>Net margin</small></div></div>
-      <p class="foot">Profit split 50/50 with his partner.</p></div>`;
+      <div class="nums"><div><b>$294K+</b><small>Gross sales</small></div><div><b>$16K+</b><small>Total profit</small></div><div><b>5.6%</b><small>Net margin</small></div><div><b>₱10K</b><small>Seed capital</small></div></div>
+      <p class="foot">His ₱10,000 of seed capital is what made the $16K+ profit possible. He handled sourcing, pricing, sales and payouts, and split the profit 50/50 with his partner.</p></div>`;
   const GOPRINT_HTML=`<div class="tcard">
       <div class="thead"><span class="kind">Venture</span><h3>GoPrint</h3></div>
       <div class="flow"><span>Connect to Wi-Fi</span><i>→</i><span>Send file</span><i>→</i><span>Screen shows price</span><i>→</i><span>Pay</span><i>→</i><span>Print</span></div></div>`;
@@ -1006,7 +1006,7 @@ ${name}`;
   const PRE={
     awards:()=>bot("In college, William's team, Team Cabuyao from Pamantasan ng Cabuyao, placed 3rd in the Byte Forward Hackathon twice: first in the South Luzon regional leg, then at the national finals, awarded at the 51st Philippine Business Conference and Expo.",AWARDS_HTML+MORE('awards'),[['achievements','Experience']]),
     ventures:()=>bot("William has run two ventures. The most recent is a game-currency trading business he co-founded with a partner. Before the hackathons, he worked on GoPrint, an automated printing vending machine.",TRADE_HTML+GOPRINT_HTML+`<div class="opts"><button type="button" class="opt" data-pre="trade">More on the trading business</button><button type="button" class="opt" data-pre="goprint">How does GoPrint work?</button></div>`,[['achievements','Experience']]),
-    trade:()=>bot("William co-founded a game-currency trading business with a partner, buying and selling in-game currency and splitting profit 50/50. It did over $294K in gross sales and over $16K in profit, a 5.6% net margin.",TRADE_HTML+MORE('trade'),[['achievements','Experience']]),
+    trade:()=>bot("William co-founded a game-currency trading business with a partner, buying and selling in-game currency and splitting profit 50/50. It did over $294K in gross sales and over $16K in profit, a 5.6% net margin. He put in ₱10,000 of seed capital, and that is what made the profit possible.",TRADE_HTML+MORE('trade'),[['achievements','Experience']]),
     goprint:()=>bot("GoPrint is an automated printing vending machine. You connect to its Wi-Fi and send the file you want printed. The screen shows how much to pay, and once you pay, it prints. No attendant, no USB stick, no cables.",GOPRINT_HTML+MORE('goprint'),[['achievements','Experience']])
   };
   const PRE_Q={awards:'What has William achieved?',ventures:'What ventures has he run?',trade:'Tell me about the trading business',goprint:'How does GoPrint work?'};

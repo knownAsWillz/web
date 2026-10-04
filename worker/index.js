@@ -70,6 +70,7 @@ async function handleChat(request, env) {
   try {
     const out = await env.AI.run(MODEL, { messages, max_tokens: 350, temperature: 0.6 });
     reply = cleanReply(out?.choices?.[0]?.message?.content ?? out?.response);
+    if (!reply) return json({ error: 'busy', raw: JSON.stringify(out).slice(0, 1200) }, 503); // TEMP: diagnosing
   } catch (err) {
     // Out of free daily budget, model busy, etc. The site shows a pre-written answer instead.
     return json({ error: 'busy', detail: String(err && err.message || err).slice(0, 300) }, 503); // TEMP: diagnosing
